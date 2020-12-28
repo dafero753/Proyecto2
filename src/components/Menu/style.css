@@ -1,0 +1,7 @@
+.nav {
+    color: rgb(27,19,99);
+}
+.nav-item {
+    display: flex;
+    margin-bottom: 40px;
+}

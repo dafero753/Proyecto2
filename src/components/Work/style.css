@@ -1,0 +1,13 @@
+.b1 {
+    width: 100%;
+}
+
+hr {
+    height: 2px;
+    background-color: whitesmoke;
+}
+.button1 {
+    background-color: rgb(233,184,25);
+    border-radius: 5px;
+    color: rgb(21,13,97);
+}

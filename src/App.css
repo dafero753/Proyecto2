@@ -1,0 +1,5 @@
+.App-container {
+    height: 100vh;
+    display: flex;
+    font-size: 1rem;
+}

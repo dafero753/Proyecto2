@@ -1,0 +1,45 @@
+hr {
+    height: 2px;
+    background-color: whitesmoke;
+}
+
+.buttom2 {
+    background-color: rgb(233,184,25);
+    border-radius: 5px;
+    color: rgb(21,13,97);
+    width: 300px;
+    margin-bottom: 30px;
+}
+
+.buttom2:hover {
+    background-color: rgb(21,13,97);
+    color: rgb(233,184,25);
+
+}
+
+.div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 300px;
+    margin-left: 80px;
+}
+
+
+.form4 {
+    margin-bottom: 20px;
+}
+
+.buttoms {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.red {
+    background-color: red;
+}
+
+.red:hover {
+    background-color: white;
+    color: red;
+}
