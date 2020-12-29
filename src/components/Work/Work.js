@@ -5,7 +5,7 @@ import './style.css';
 import LayoutTwo from '../LayoutTwo/LayoutTwo';
 import Cookies from 'universal-cookie';
 
-const baseUrl = "/OrderHeaders";
+const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderHeaders";
 const cookies = new Cookies()
 
 export default class Work extends React.Component{
