@@ -3,20 +3,6 @@ hr {
     background-color: whitesmoke;
 }
 
-.buttom2 {
-    background-color: rgb(233,184,25);
-    border-radius: 5px;
-    color: rgb(21,13,97);
-    width: 300px;
-    margin-bottom: 30px;
-}
-
-.buttom2:hover {
-    background-color: rgb(21,13,97);
-    color: rgb(233,184,25);
-
-}
-
 .div {
     display: flex;
     justify-content: center;
