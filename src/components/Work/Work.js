@@ -34,14 +34,12 @@ export default class Work extends React.Component{
             deliveryDate: `${this.state.form.deliveryDate}T00:00:00`,
             UserCodeCreation: `${this.state.form.UserCodeCreation}`
         })
-        console.log(create)
         await axios.post(baseUrl, create, {
             headers: {
                 'Content-Type': 'application/json',
             }
         })
         .then ( response => {
-            console.log(response.data)
             return response.data;
         } )
         .then ( response => {
@@ -58,7 +56,7 @@ export default class Work extends React.Component{
                 cookies.set('company', resp.company, {path: "/"});
                 cookies.set('userCodeCreationNavigation', resp.userCodeCreationNavigation, {path: "/"});
                 cookies.set('userCodeModificationNavigation', resp.userCodeModificationNavigation, {path: "/"});
-                console.log(response);
+                alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
             }else {
                 alert("user or password invalid");
             }
