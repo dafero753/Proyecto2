@@ -13,7 +13,7 @@ export default class Entry extends React.Component{
     componentDidMount()
     {   
         axios
-        .get("https://orderentryappv1.azurewebsites.net/api/OrderHeaders/2/10-1-2020/12-30-2020")
+        .get("/OrderHeaders/2/10-1-2020/12-30-2020")
         .then(function(response) {
             this.setState({order: response.data[0]});            
         }.bind(this))  // <-- notice the .bind(this)

@@ -6,7 +6,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie'
 import './style.css'
 
-const baseUrl = "https://orderentryappv1.azurewebsites.net/api/account/login";
+const baseUrl = "/login";
 const cookies = new Cookies()
 
 export default class Login extends React.Component{
