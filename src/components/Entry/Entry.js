@@ -3,6 +3,9 @@ import { Button, Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import './style.css';
 import LayoutTwo from '../LayoutTwo/LayoutTwo';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 export default class Entry extends React.Component{
 
@@ -34,7 +37,7 @@ export default class Entry extends React.Component{
                             Order N°.
                             </Form.Label>
                             <Col sm={10}>
-                            <Form.Control type="number" defaultValue={this.state.order.orderNo} />
+                            <Form.Control type="number" defaultValue={cookies.get('orderNo')} disabled/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row}>
@@ -42,14 +45,13 @@ export default class Entry extends React.Component{
                             Delivery date
                             </Form.Label>
                             <Col sm={10}>
-                            <Form.Control type="text" defaultValue={this.state.order.orderDate} />
+                            <Form.Control type="text" defaultValue={cookies.get('deliveryDate')} disabled />
                             </Col>
                         </Form.Group>
                         <hr></hr>
-                        <Form.Group>
+                        <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control as="select" size="sm" custom>
-                            </Form.Control>
+                            <Form.Control as="textarea" autoFocus="autofocus" rows={1} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Order quantity</Form.Label>
@@ -65,39 +67,43 @@ export default class Entry extends React.Component{
                         <Row>
                             <Col>
                             <Form.Label>Brand</Form.Label>
-                            <Form.Control placeholder="Brand" />
+                            <Form.Control disabled placeholder="Brand" />
                             </Col>
                             <Col>
                             <Form.Label>Pack</Form.Label>
-                            <Form.Control placeholder="Pack" />
+                            <Form.Control disabled placeholder="Pack" />
                             </Col>  
                             <Col>
                             <Form.Label>Size</Form.Label>
-                            <Form.Control placeholder="Size" />
+                            <Form.Control disabled placeholder="Size" />
                             </Col>
                             <Col>
                             <Form.Label>UOM</Form.Label>
-                            <Form.Control placeholder="UOM" />
+                            <Form.Control disabled placeholder="UOM" />
                             </Col>  
                         </Row>
                     </Form>
                     <Form.Group>
                         <Form.Label>Descrption</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control as="textarea" rows={1} disabled/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>UPC</Form.Label>
+                        <Form.Control type="text" placeholder="UPC" disabled/>
                     </Form.Group>
                     <Form className="form4"> 
                         <Row>
                             <Col>
                             <Form.Label>Case $</Form.Label>
-                            <Form.Control placeholder="Case" />
+                            <Form.Control disabled placeholder="Case" />
                             </Col>
                             <Col>
                             <Form.Label>Unit $</Form.Label>
-                            <Form.Control placeholder="Unit" />
+                            <Form.Control disabled placeholder="Unit" />
                             </Col>  
                             <Col>
                             <Form.Label>Deal $</Form.Label>
-                            <Form.Control placeholder="Deal" />
+                            <Form.Control disabled placeholder="Deal" />
                             </Col>
                         </Row>
                     </Form>

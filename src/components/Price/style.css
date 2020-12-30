@@ -25,3 +25,10 @@
     background-color: white;
     color: red;
 }
+
+
+@media (max-width: 560px) {
+        .table1 {
+            font-size: 0.5rem;
+    }
+}

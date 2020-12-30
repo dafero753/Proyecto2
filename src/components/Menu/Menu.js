@@ -11,7 +11,7 @@ export default class Menu extends React.Component{
             //onSelect={selectedKey => alert(`selected ${selectedKey}`)}
         >
             <Nav.Item>
-                <Nav.Link href="/">HOME</Nav.Link>
+                <Nav.Link href="/order-entry-system">HOME</Nav.Link>
                 <Nav.Link href="/auxiliaries">AUX MANT</Nav.Link>
             </Nav.Item>
         </Nav>

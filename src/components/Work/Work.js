@@ -6,7 +6,10 @@ import LayoutTwo from '../LayoutTwo/LayoutTwo';
 import Cookies from 'universal-cookie';
 
 const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderHeaders";
+
 const cookies = new Cookies()
+
+
 
 export default class Work extends React.Component{
 
@@ -17,7 +20,7 @@ export default class Work extends React.Component{
             UserCodeCreation: '',
         }
     }
-    
+
     handleChange = async e => {
         await this.setState({
             form:{
@@ -30,9 +33,9 @@ export default class Work extends React.Component{
     CreateNewOrder = async(e) => {
         e.preventDefault();
         const create = JSON.stringify({
-            companyId: `${this.state.form.companyId}`, 
+            companyId: `3`, 
             deliveryDate: `${this.state.form.deliveryDate}T00:00:00`,
-            UserCodeCreation: `${this.state.form.UserCodeCreation}`
+            UserCodeCreation: `9`
         })
         await axios.post(baseUrl, create, {
             headers: {
@@ -57,6 +60,7 @@ export default class Work extends React.Component{
                 cookies.set('userCodeCreationNavigation', resp.userCodeCreationNavigation, {path: "/"});
                 cookies.set('userCodeModificationNavigation', resp.userCodeModificationNavigation, {path: "/"});
                 alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
+                window.location.href="/entry-orders";
             }else {
                 alert("user or password invalid");
             }
@@ -67,19 +71,20 @@ export default class Work extends React.Component{
     }
 
     render(){
+        const data = [
+            ...cookies.get('stores')
+        ]
+        console.log(data)
         return(
             <LayoutTwo>
                 <Container className="container-bottom">
                 <h2>Work with orders</h2>
-                
                 <Form onSubmit={(e)=>this.CreateNewOrder(e)}>
-                    <Form.Group>
-                        <Form.Label>Store</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        placeholder="Enter company id"
-                        name="companyId" 
-                        onChange={this.handleChange} />
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                        <Form.Label>Company Name</Form.Label>
+                        <Form.Control as="select" onChange={this.handleChange}>
+                        <option>{cookies.get('companyId')}</option>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm={2}>
@@ -93,15 +98,7 @@ export default class Work extends React.Component{
                         onChange={this.handleChange}/>
                         </Col>
                     </Form.Group>
-                    <Form.Group>
-                        <Form.Label>User Code</Form.Label>
-                        <Form.Control 
-                        type="text"
-                        placeholder="User Code" 
-                        name="UserCodeCreation"
-                        onChange={this.handleChange} />
-                    </Form.Group>
-                    <Button type="submit">Create New Order</Button>
+                    <Button type="submit" onClick={this.handleClick}>Create New Order</Button>
                     <hr></hr>
                 </Form>
                 

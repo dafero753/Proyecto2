@@ -1,22 +1,29 @@
 import React from 'react'
+import { NavLink } from 'react-dom'
 import Layout from '../Layout'
 import { Form, Button, Container} from 'react-bootstrap'
 import axios from 'axios';
+import Work from '../Work'
 //import md5 from 'md5';
 import Cookies from 'universal-cookie'
 import './style.css'
 
 const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/account/login";
-const cookies = new Cookies()
+const cookies = new Cookies();
 
 export default class Login extends React.Component{
 
-    state={
-        form:{
-            UserCode: '',
-            UserPassword: '',
-        }
-    }
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            form:{
+                UserCode: '',
+                UserPassword: '',
+            },
+            data: []
+        }; 
+      } 
     
     handleChange = async e => {
         await this.setState({
@@ -33,7 +40,6 @@ export default class Login extends React.Component{
             UserCode: `${this.state.form.UserCode}`, 
             UserPassword: `${this.state.form.UserPassword}`
         })
-        console.log(login)
         await axios.post(baseUrl, login, {
             headers: {
                 'Content-Type': 'application/json',
@@ -48,10 +54,12 @@ export default class Login extends React.Component{
                 cookies.set('companyId', resp.companyId, {path: "/"});
                 cookies.set('roleId', resp.roleId, {path: "/"});
                 cookies.set('token', resp.token, {path: "/"});
-                cookies.set('UserCode', resp.UserCode, {path: "/"});
+                cookies.set('UserCode', this.state.form.UserCode, {path: "/"});
                 cookies.set('stores', resp.stores, {path: "/"});
-                alert(`Welcome company ${resp.companyId}`)
-                console.log(response);
+                cookies.set('storesNames', resp.stores[0].companyName, {path: "/"});
+                cookies.set('storesId', resp.stores[0].companyId, {path: "/"});
+                cookies.set('storesPrice', resp.stores[0].pricelevel, {path: "/"});
+                //alert(`Welcome company ${this.state.form.UserCode}`)
                 window.location.href="/order-entry-system";
             }else {
                 alert("user or password invalid");
@@ -59,6 +67,7 @@ export default class Login extends React.Component{
         })
         .catch ( error => {
             console.error('Error:', error);
+            alert("user or password invalid");
         })
     }
 
@@ -78,7 +87,6 @@ export default class Login extends React.Component{
                     />
                     
                 </Form.Group>
-
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control 

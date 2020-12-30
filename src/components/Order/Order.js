@@ -8,9 +8,6 @@ export default class Order extends React.Component{
     handleClick = e => {
         window.location.href="/work-with-orders";
     }
-    handleClick1 = e => {
-        window.location.href="/entry-orders";
-    }
     handleClick2 = e => {
         window.location.href="/inquiry-orders";
     }
@@ -26,21 +23,12 @@ export default class Order extends React.Component{
             <Layout>
                 <Container className="container-bottom">
                 <h2>Order Entry System</h2>
-
-                <Button 
-                variant="primary" 
-                type="submit" 
-                className="buttom-entry"
-                onClick={this.handleClick}
-                >
-                    WORK WITH ORDERS
-                </Button>
                 
                 <Button 
                 variant="primary" 
                 type="submit" 
                 className="buttom-entry"
-                onClick={this.handleClick1}
+                onClick={this.handleClick}
                 >
                     ORDER ENTRY
                 </Button>
