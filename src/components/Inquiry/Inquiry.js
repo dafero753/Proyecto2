@@ -30,52 +30,52 @@ export default class Inquiry extends React.Component{
                         <hr></hr>
                         <Form.Group>
                             <Form.Label>Item No°</Form.Label>
-                            <Form.Control type="text" placeholder="item N°" />
+                            <Form.Control type="text" disabled placeholder="item N°" />
                         </Form.Group>
                     </Form>
                     <Form>
                         <Row>
                             <Col>
                             <Form.Label>Brand</Form.Label>
-                            <Form.Control placeholder="Brand" />
+                            <Form.Control disabled placeholder="Brand" />
                             </Col>
                             <Col>
                             <Form.Label>Pack</Form.Label>
-                            <Form.Control placeholder="Pack" />
+                            <Form.Control disabled placeholder="Pack" />
                             </Col>  
                             <Col>
                             <Form.Label>Size</Form.Label>
-                            <Form.Control placeholder="Size" />
+                            <Form.Control disabled placeholder="Size" />
                             </Col>
                             <Col>
                             <Form.Label>UOM</Form.Label>
-                            <Form.Control placeholder="UOM" />
+                            <Form.Control disabled placeholder="UOM" />
                             </Col>  
                         </Row>
                     </Form>
                     <Form.Group>
                         <Form.Label>Descrption</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control as="textarea" rows={1} disabled />
                     </Form.Group>
                     <Form className="form4"> 
                         <Row>
                             <Col>
                             <Form.Label>Case $</Form.Label>
-                            <Form.Control placeholder="Case" />
+                            <Form.Control disabled placeholder="Case" />
                             </Col>
                             <Col>
                             <Form.Label>Unit $</Form.Label>
-                            <Form.Control placeholder="Unit" />
+                            <Form.Control disabled placeholder="Unit" />
                             </Col>  
                             <Col>
                             <Form.Label>Deal $</Form.Label>
-                            <Form.Control placeholder="Deal" />
+                            <Form.Control disabled placeholder="Deal" />
                             </Col>
                         </Row>
                     </Form>
                     <Form.Group>
                         <Form.Label>UPC</Form.Label>
-                        <Form.Control type="text" placeholder="UPC" />
+                        <Form.Control type="text" disabled placeholder="UPC" />
                     </Form.Group>
                     </Container>
                 </LayoutTwo>

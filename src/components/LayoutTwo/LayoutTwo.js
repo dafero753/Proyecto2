@@ -10,7 +10,6 @@ export default class LayoutTwo extends React.Component{
             <Container fluid className="layout">
                 <header className="header d-flex justify-content-center flex-column align-items-center">
                     <div className="top">
-                        <button className="back">Back</button>
                         <img src={ImgAgs} alt="ags" className="image1"/>   
                     </div>
                     <Menu></Menu>                 
