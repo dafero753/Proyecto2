@@ -13,13 +13,22 @@ const cookies = new Cookies()
 
 export default class Work extends React.Component{
 
-    state={
-        form:{
-            companyId: '',
-            deliveryDate: '',
-            UserCodeCreation: '',
-        }
-    }
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            form:{
+                companyId: '',
+                deliveryDate: '',
+                UserCodeCreation: '',
+            },
+            data: '',
+            stores: [cookies.get('stores')]
+        }; 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChange1 = this.handleChange1.bind(this);
+      }     
+
 
     handleChange = async e => {
         await this.setState({
@@ -28,14 +37,56 @@ export default class Work extends React.Component{
                 [e.target.name]: e.target.value,
             }
         });
+        console.log(this.state)
     }
+
+    handleChange1 = async e => {
+        const options = e.target.options
+        const select = []
+        const price= []
+
+        for(let i = 0; i < options.length; i++) {
+            if(options[i].selected) {
+                select.push(options[i].value);
+                price.push(options[i].id);
+                console.log(options[i])
+            };
+        }
+        await this.setState({
+            form:{
+                ...this.state.form,
+                companyId: select.toString()
+            },
+            data: price.toString()
+        });
+        await axios
+        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderHeaders/${this.state.form.companyId}/10-1-2020/12-30-2020`)
+        .then(function(response) {         
+            let res = document.querySelector('#res');
+            res.innerHTML=""
+            for (let item of response.data){
+                res.innerHTML += `
+                <tr>
+                    <td>${item.orderNo}</td>
+                    <td>${item.deliveryDate}</td>
+                    <td>
+                        <button className="button1">open</button>
+                    </td>
+                </tr>`
+            }
+            console.log(this.state.form)
+        }.bind(this))  
+        .catch(function(error) {
+            console.log(error);
+        }); 
+    }    
 
     CreateNewOrder = async(e) => {
         e.preventDefault();
         const create = JSON.stringify({
-            companyId: `3`, 
+            companyId: `${this.state.form.companyId}`, 
             deliveryDate: `${this.state.form.deliveryDate}T00:00:00`,
-            UserCodeCreation: `9`
+            UserCodeCreation: `${cookies.get('UserCode')}`
         })
         await axios.post(baseUrl, create, {
             headers: {
@@ -59,10 +110,11 @@ export default class Work extends React.Component{
                 cookies.set('company', resp.company, {path: "/"});
                 cookies.set('userCodeCreationNavigation', resp.userCodeCreationNavigation, {path: "/"});
                 cookies.set('userCodeModificationNavigation', resp.userCodeModificationNavigation, {path: "/"});
+                cookies.set('pricelevel', this.state.data, {path: "/"});
                 alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
-                window.location.href="/entry-orders";
+                window.location.href="/entry-orders";      
             }else {
-                alert("user or password invalid");
+                alert("something went wrong");
             }
         })
         .catch ( error => {
@@ -71,20 +123,21 @@ export default class Work extends React.Component{
     }
 
     render(){
-        const data = [
-            ...cookies.get('stores')
-        ]
-        console.log(data)
         return(
             <LayoutTwo>
                 <Container className="container-bottom">
                 <h2>Work with orders</h2>
                 <Form onSubmit={(e)=>this.CreateNewOrder(e)}>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
+                    <Form.Group>
                         <Form.Label>Company Name</Form.Label>
-                        <Form.Control as="select" onChange={this.handleChange}>
-                        <option>{cookies.get('companyId')}</option>
-                        </Form.Control>
+                        <Form.Control as="select" value={this.state.value} onChange={this.handleChange1}>
+                        {this.state.stores[0].map(e => (    
+                           <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
+                                {e.companyName}
+                            </option>
+                        ))
+                        }
+                        </Form.Control> 
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm={2}>
@@ -111,32 +164,13 @@ export default class Work extends React.Component{
                         <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="res">
                         <tr>
-                        <td>1249</td>
-                        <td>11/102020</td>
-                        <td>
-                            <button className="button1">open</button>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>1249</td>
-                        <td>11/102020</td>
-                        <td>
-                            <button className="button1">open</button>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>1249</td>
-                        <td>11/102020</td>
-                        <td>
-                            <button className="button1">open</button>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <button className="button1" disabled>open</button>
+                            </td>
                         </tr>
                     </tbody>
                     </Table>
