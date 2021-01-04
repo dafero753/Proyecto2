@@ -37,7 +37,6 @@ export default class Work extends React.Component{
                 [e.target.name]: e.target.value,
             }
         });
-        console.log(this.state)
     }
 
     handleChange1 = async e => {
@@ -49,7 +48,6 @@ export default class Work extends React.Component{
             if(options[i].selected) {
                 select.push(options[i].value);
                 price.push(options[i].id);
-                console.log(options[i])
             };
         }
         await this.setState({
@@ -60,7 +58,7 @@ export default class Work extends React.Component{
             data: price.toString()
         });
         await axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderHeaders/${this.state.form.companyId}/10-1-2020/12-30-2020`)
+        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderQueries/${this.state.form.companyId}/O`)
         .then(function(response) {         
             let res = document.querySelector('#res');
             res.innerHTML=""
@@ -74,7 +72,6 @@ export default class Work extends React.Component{
                     </td>
                 </tr>`
             }
-            console.log(this.state.form)
         }.bind(this))  
         .catch(function(error) {
             console.log(error);
@@ -88,12 +85,14 @@ export default class Work extends React.Component{
             deliveryDate: `${this.state.form.deliveryDate}T00:00:00`,
             UserCodeCreation: `${cookies.get('UserCode')}`
         })
+        console.log(this.state.form)
         await axios.post(baseUrl, create, {
             headers: {
                 'Content-Type': 'application/json',
             }
         })
         .then ( response => {
+            console.log(response)
             return response.data;
         } )
         .then ( response => {
@@ -151,7 +150,7 @@ export default class Work extends React.Component{
                         onChange={this.handleChange}/>
                         </Col>
                     </Form.Group>
-                    <Button type="submit" onClick={this.handleClick}>Create New Order</Button>
+                    <Button type="submit">Create New Order</Button>
                     <hr></hr>
                 </Form>
                 
@@ -171,6 +170,11 @@ export default class Work extends React.Component{
                             <td>
                                 <button className="button1" disabled>open</button>
                             </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                     </Table>

@@ -2,10 +2,40 @@ import React from 'react'
 import { Container, Form, Row, Col, Table } from 'react-bootstrap'
 import './style.css'
 import LayoutTwo from '../LayoutTwo/LayoutTwo'
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+
+const dataOrders = []
 
 export default class Detail extends React.Component{
+
+    componentDidMount() {
+        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/3/2`)
+        .then(function(response) {      
+            let res = document.querySelector('#res4');
+            res.innerHTML=""
+            for (let item of response.data.items){
+                res.innerHTML += `
+                <tr>
+                    <td>${item.itemCode}</td>
+                    <td>${item.description}</td>
+                    <td>${item.size}</td>
+                    <td>${item.cases}</td>
+                    <td>${item.price}</td>
+                    <td>${item.total}</td>
+                </tr>`
+            }
+            dataOrders.push(response)
+            console.log(dataOrders[0].data.cases)
+        }.bind(this))  
+        .catch(function(error) {
+            console.log(error);
+        }); 
+      }
      
     render(){
+        console.log(dataOrders)
         return(
                 <LayoutTwo className="border uplay">
                     <Container className="container-bottom">
@@ -56,41 +86,20 @@ export default class Detail extends React.Component{
                                 <th>Description</th>
                                 <th>Size</th>
                                 <th>Cases</th>
-                                <th>Units</th>
                                 <th>Unit $</th>
                                 <th>Total $</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="res4">
                             <tr>
                                 <td>71500270045</td>
                                 <td>Oreo Cookie White</td>
                                 <td>24</td>
                                 <td>15</td>
-                                <td>0</td>
                                 <td>3.50</td>
                                 <td>1,260.00</td>
                             </tr>
                             <tr>
-                                <td>71500270358</td>
-                                <td>Oreo Cookie Mint</td>
-                                <td>12</td>
-                                <td>30</td>
-                                <td>5</td>
-                                <td>3.89</td>
-                                <td>1,419.85</td>
-                            </tr>
-                            <tr>
-                                <td>71500276282</td>
-                                <td>Oreo Cookie Origl</td>
-                                <td>48</td>
-                                <td>25</td>
-                                <td>10</td>
-                                <td>4.25</td>
-                                <td>4,823.75</td>
-                            </tr>
-                            <tr>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -105,19 +114,8 @@ export default class Detail extends React.Component{
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -132,6 +130,13 @@ export default class Detail extends React.Component{
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -141,10 +146,8 @@ export default class Detail extends React.Component{
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

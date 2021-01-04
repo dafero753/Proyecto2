@@ -2,8 +2,44 @@ import React from 'react'
 import { Container, Table } from 'react-bootstrap'
 import './style.css'
 import LayoutTwo from '../LayoutTwo/LayoutTwo'
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 export default class Price extends React.Component{
+
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            form:{
+                companyId: '',             
+            },
+        }; 
+      }  
+    
+      componentDidMount() {
+        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/1`)
+        .then(function(response) {         
+            let res = document.querySelector('#res3');
+            res.innerHTML=""
+            for (let item of response.data){
+                res.innerHTML += `
+                <tr>
+                    <td>${item.itemCode}</td>
+                    <td>${item.description}</td>
+                    <td>${item.priceNow}</td>
+                    <td>${item.priceBefore}</td>
+                    <td>${item.diff}</td>
+                    <td>${item.percentage}</td>
+                </tr>`
+            }
+        }.bind(this))  
+        .catch(function(error) {
+            console.log(error);
+        }); 
+      }
      
     render(){
         return(
@@ -22,7 +58,7 @@ export default class Price extends React.Component{
                                 <th>%</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="res3">
                             <tr>
                                 <td>71500270045</td>
                                 <td>Oreo Cookie White</td>

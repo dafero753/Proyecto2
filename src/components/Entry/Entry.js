@@ -49,8 +49,8 @@ export default class Entry extends React.Component{
     getItemInfo = async(e) => {
         e.preventDefault();
         const itemInfo = JSON.stringify({
-            PriceLevel: `${cookies.get('pricelevel')}`, 
-            ItemCode: ``
+            PriceLevel: `${cookies.get('pricelevel')}`,
+            ItemCode: `${this.state.form.ItemCode}`,
         })
         await axios.post(baseUrl, itemInfo, {
             headers: {
@@ -58,6 +58,7 @@ export default class Entry extends React.Component{
             }
         })
         .then ( response => {
+            console.log(response)
             return response.data;
         } )
         .then ( response => {
@@ -136,7 +137,7 @@ export default class Entry extends React.Component{
                     <Form onSubmit={e => this.getItemInfo(e)}>    
                         <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control  type="text" autoFocus="autofocus"  onChange={this.handleChange}/>
+                            <Form.Control  type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Order quantity</Form.Label>
