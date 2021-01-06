@@ -7,6 +7,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies()
 const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";   
+const baseUrl2 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
 
 export default class Entry extends React.Component{
 
@@ -17,6 +18,12 @@ export default class Entry extends React.Component{
             form:{
                 PriceLevel: '',
                 ItemCode: '',
+                companyId: '',
+                OrderNo: '',
+                ItemCode: '',
+                OrderCases: '',
+                Price: '',
+                UserCodeModification: '',
             },
             itemData: {
                 priceLevel: '',
@@ -33,9 +40,13 @@ export default class Entry extends React.Component{
                 status: '',
                 date: '',
                 oldPrice:'',
-            }
+            },
         }; 
       } 
+
+      handleClick = e => {
+        window.location.href="/item-list-on-order";
+    }
     
       handleChange = async e => {
         await this.setState({
@@ -108,6 +119,53 @@ export default class Entry extends React.Component{
             }
         });
         console.log(this.state)
+
+        const itemInfo2 = JSON.stringify({
+            companyId: `${cookies.get('companyId')}`,
+            OrderNo: `${cookies.get('orderNo')}`,
+            ItemCode: `${this.state.itemData.itemCode}`,
+            OrderCases: `${this.state.itemData.price}`,
+            Price: `${this.state.itemData.price}`,
+            UserCodeModification: `${cookies.get('userCodeModification')}`,
+        })
+        if(this.state.form.OrderCases != 0 && this.state.form.OrderCases != undefined){
+            await axios.post(baseUrl2, itemInfo2, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then ( response => {
+                console.log(response)
+                if(response.data.exist == 0){
+                return response.data;
+                }else{
+                    alert('Item already exist in order')
+                    let res = document.querySelector('#botonChange');
+                    res.innerHTML=""
+                    res.innerHTML += `
+                        <Button className="b2" type="submit">Save Item</Button>
+                        <Button className="b2" type="submit" style="color: red,">Delete Item</Button>
+                    `
+                    console.log(res)
+                }
+            } )
+            .then ( response => {
+                if(response){
+                    var resp = response;
+                    cookies.set('orderDetail', resp.orderDetail, {path: "/"});
+                    cookies.set('exist', resp.exist, {path: "/"});
+                    cookies.set('message', resp.message, {path: "/"}); 
+                    console.log(resp)  
+                    alert('Item added')          
+                }
+            })
+            .catch ( error => {
+                console.error('Error:', error);
+                alert("invalid item");
+            })
+        }else {
+            alert('need a cases number')
+        }
     }
      
     render(){
@@ -143,15 +201,17 @@ export default class Entry extends React.Component{
                             <Form.Label>Order quantity</Form.Label>
                             <br></br>
                             <Form.Label>Cases</Form.Label>
-                            <Form.Control type="text" placeholder="cases" />
+                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange}/>
                         </Form.Group>
-                        <Button className="b2" type="submit">Add Item to Order</Button>
+                        <div id="botonChange">
+                            <Button className="b2" type="submit">Add Item to Order</Button>
+                        </div>
                     </Form>
                         <hr></hr>                    
-                    <button className="buttom2">Item List on Order</button>
+                    <button className="buttom2" onClick={this.handleClick}>Item List on Order</button>
                     <Form>
                         <Row>
-                            <Col>
+                            <Col xs={5}>
                             <Form.Label>Brand</Form.Label>
                             <Form.Control disabled placeholder="Brand" name="brand" defaultValue={this.state.itemData.brand} />
                             </Col>

@@ -16,6 +16,7 @@ import Auxiliaries from './components/Auxiliaries';
 import Users from './components/Users';
 import Stores from './components/Stores';
 import Chains from './components/Chains/Chains';
+import Itemlist from './components/Itemlist';
 
 const history = createBrowserHistory()
 
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/users" component={Users}></Route>
         <Route exact path="/stores" component={Stores}></Route>
         <Route exact path="/chains" component={Chains}></Route>
+        <Route exact path="/item-list-on-order" component={Itemlist}></Route>
       </Router>
     </div>
   );
