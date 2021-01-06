@@ -124,7 +124,7 @@ export default class Entry extends React.Component{
             companyId: `${cookies.get('companyId')}`,
             OrderNo: `${cookies.get('orderNo')}`,
             ItemCode: `${this.state.itemData.itemCode}`,
-            OrderCases: `${this.state.itemData.price}`,
+            OrderCases: `${this.state.form.OrderCases}`,
             Price: `${this.state.itemData.price}`,
             UserCodeModification: `${cookies.get('userCodeModification')}`,
         })

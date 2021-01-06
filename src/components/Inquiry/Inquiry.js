@@ -72,46 +72,6 @@ export default class Inquiry extends React.Component{
         });
     }    
 
-    getStore = async(e) => {
-        e.preventDefault();
-        const create = JSON.stringify({
-            companyId: `${this.state.form.companyId}`, 
-        })
-        console.log(cookies.get('UserCode'))
-        await axios.post(baseUrl, create, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then ( response => {
-            return response.data;
-        } )
-        .then ( response => {
-            if(response){
-                var resp = response;
-                cookies.set('companyId', resp.companyId, {path: "/"});
-                cookies.set('orderNo', resp.orderNo, {path: "/"});
-                cookies.set('orderDate', resp.orderDate, {path: "/"});
-                cookies.set('orderStatus', resp.orderStatus, {path: "/"});
-                cookies.set('deliveryDate', resp.deliveryDate, {path: "/"});
-                cookies.set('userCodeCreation', resp.userCodeCreation, {path: "/"});
-                cookies.set('lastModification', resp.lastModification, {path: "/"});
-                cookies.set('userCodeModification', resp.userCodeModification, {path: "/"});
-                cookies.set('company', resp.company, {path: "/"});
-                cookies.set('userCodeCreationNavigation', resp.userCodeCreationNavigation, {path: "/"});
-                cookies.set('userCodeModificationNavigation', resp.userCodeModificationNavigation, {path: "/"});
-                cookies.set('pricelevel', this.state.data, {path: "/"});
-                alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
-                window.location.href="/entry-orders";      
-            }else {
-                alert("something went wrong");
-            }
-        })
-        .catch ( error => {
-            console.error('Error:', error);
-        })
-    }
-
     getItemInfo = async(e) => {
         e.preventDefault();
         const itemInfo = JSON.stringify({
@@ -124,7 +84,6 @@ export default class Inquiry extends React.Component{
             }
         })
         .then ( response => {
-            console.log(response)
             return response.data;
         } )
         .then ( response => {
@@ -143,8 +102,7 @@ export default class Inquiry extends React.Component{
                 cookies.set('dealOff', resp.dealOff, {path: "/"});
                 cookies.set('status', resp.status, {path: "/"});
                 cookies.set('date', resp.date, {path: "/"});
-                cookies.set('oldPrice', resp.oldPrice, {path: "/"});  
-                console.log(resp)            
+                cookies.set('oldPrice', resp.oldPrice, {path: "/"});          
             }
             else {
                 alert("wrong code");
