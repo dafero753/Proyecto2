@@ -3,7 +3,6 @@ import { Container, Form, Row, Col, Table } from 'react-bootstrap'
 import './style.css'
 import LayoutTwo from '../LayoutTwo/LayoutTwo'
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 
 
 const dataOrders = []

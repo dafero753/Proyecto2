@@ -20,7 +20,7 @@ export default class Itemlist extends React.Component{
       }  
     
       componentDidMount() {
-        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}`)
+        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('priceLevel')}`)
         .then(function(response) { 
             console.log(response.data)        
             let res = document.querySelector('#res3');
@@ -30,10 +30,10 @@ export default class Itemlist extends React.Component{
                 <tr>
                     <td>${item.itemCode}</td>
                     <td>${item.description}</td>
-                    <td>${item.priceNow}</td>
+                    <td>${item.size}</td>
                     <td>${item.orderCases}</td>
                     <td>${item.orderUnits}</td>
-                    <td>${item.percentage}</td>
+                    <td>${item.total}</td>
                 </tr>`
             }
         }.bind(this))  
@@ -56,7 +56,7 @@ export default class Itemlist extends React.Component{
                                 <th>Size</th>
                                 <th>Cases</th>
                                 <th>Units</th>
-                                <th>Total $</th>
+                                <th>Total$</th>
                             </tr>
                         </thead>
                         <tbody id="res3">

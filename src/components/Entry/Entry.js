@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies()
 const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";   
 const baseUrl2 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
+const baseUrl3 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Close";   
 
 export default class Entry extends React.Component{
 
@@ -44,6 +45,34 @@ export default class Entry extends React.Component{
         }; 
       } 
 
+
+      handleSubmit = async e => {
+        e.preventDefault();
+        const bodyInfo = JSON.stringify({
+            companyId: `${cookies.get('companyId')}`,
+            orderNo: `${cookies.get('orderNo')}`,
+            orderDate: `${cookies.get('orderDate')}`,
+            orderStatus: `${cookies.get('orderStatus')}`,
+            deliveryDate: `${cookies.get('deliveryDate')}`,
+            userCodeModification: `${cookies.get('userCodeModification')}`, 
+        })
+        await axios.post(baseUrl3, bodyInfo, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            console.log(response)
+            return response.data
+        })
+        .then(response => {
+            if(response){
+                console.log(response.data)
+                alert('Order closed!')
+            }
+        })
+      }
+
       handleClick = e => {
         window.location.href="/item-list-on-order";
     }
@@ -69,7 +98,6 @@ export default class Entry extends React.Component{
             }
         })
         .then ( response => {
-            console.log(response)
             return response.data;
         } )
         .then ( response => {
@@ -255,7 +283,7 @@ export default class Entry extends React.Component{
                     </Form>
                     <Form.Group className="buttoms">
                         <Button>Suspend Order</Button>
-                        <Button className="red">Close Order</Button>
+                        <Button className="red" onClick={this.handleSubmit}>Close Order</Button>
                     </Form.Group>
                     </Container>
                 </LayoutTwo>
