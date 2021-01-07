@@ -68,7 +68,7 @@ export default class Sent extends React.Component{
     go = async(e) => {
         e.preventDefault();
         const create = JSON.stringify({
-            CompanyId: `${this.state.form.companyId}`,
+            CompanyId: `3`,
             date1: `${this.state.form.date1}T00:00:00.000Z`,
             date2: `${this.state.form.date2}T23:59:59.000Z`
         })
@@ -100,6 +100,13 @@ export default class Sent extends React.Component{
                             <button 
                             className="button1"
                             onClick={this.handleClick}
+                            style="
+                                background-color: rgb(233,184,25);
+                                border-radius: 5px;
+                                color: rgb(21,13,97);
+                                margin-bottom: 30px;
+                                box-shadow: 2px 2px 5px rgb(62,74,129);
+                            "
                             >></button>
                         </td>
                     </tr>`
@@ -161,7 +168,7 @@ export default class Sent extends React.Component{
                             <td>-</td>
                             <td>
                                 <button 
-                                className="button1"
+                                className="buttom3"
                                 onClick={this.handleClick}
                                 >{'>'}</button>
                             </td>

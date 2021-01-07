@@ -9,13 +9,11 @@
     margin-bottom: 50px;
 }
 
-.btn {
-    background-color: rgb(27,19,99);
-    box-shadow: 2px 2px 5px rgb(62,74,129);
-}
-
 .buttom-entry, .buttom-item, .buttom-reports {
     margin-top: 20px;
+    background-color: rgb(27,19,99);
+    box-shadow: 2px 2px 5px rgb(62,74,129);
+    color: white;
 }
 
 .buttom-exit {

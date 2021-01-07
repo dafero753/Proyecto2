@@ -29,7 +29,13 @@ export default class Work extends React.Component{
         this.handleChange1 = this.handleChange1.bind(this);
       }     
 
-
+      handleclick = e =>{
+          e.preventDefault();
+        console.log(HTMLButtonElement)
+    }
+    handleThisClick = e => {
+        console.log('click')
+    }
     handleChange = async e => {
         await this.setState({
             form:{
@@ -64,11 +70,24 @@ export default class Work extends React.Component{
             res.innerHTML=""
             for (let item of response.data){
                 res.innerHTML += `
+                <script>
+                    handleThisClick = e => {
+                        console.log('click')
+                    }
+                </script>
                 <tr>
                     <td>${item.orderNo}</td>
                     <td>${item.deliveryDate}</td>
                     <td>
-                        <button className="button1">open</button>
+                        <button style="
+                            border-radius: 5px;
+                            /* color: darkred; */
+                            background-color: rgb(233,184,25);
+                            border-radius: 5px;
+                            color: rgb(21,13,97);
+                        "
+                        onClick="handleThisClick()"
+                        >open</button>
                     </td>
                 </tr>`
             }
@@ -150,7 +169,7 @@ export default class Work extends React.Component{
                         onChange={this.handleChange}/>
                         </Col>
                     </Form.Group>
-                    <Button type="submit">Create New Order</Button>
+                    <Button type="submit" className="buttonOrder1">Create New Order</Button>
                     <hr></hr>
                 </Form>
                 
@@ -168,7 +187,9 @@ export default class Work extends React.Component{
                             <td>-</td>
                             <td>-</td>
                             <td>
-                                <button className="button1" disabled>open</button>
+                                <form onSubmit={this.handleclick}>
+                                    <button className="buttonOrder">open</button>
+                                </form>
                             </td>
                         </tr>
                         <tr>

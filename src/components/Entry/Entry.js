@@ -46,7 +46,7 @@ export default class Entry extends React.Component{
       } 
 
 
-      handleSubmit = async e => {
+      handleSubmit = e => {
         e.preventDefault();
         const bodyInfo = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
@@ -56,7 +56,8 @@ export default class Entry extends React.Component{
             deliveryDate: `${cookies.get('deliveryDate')}`,
             userCodeModification: `${cookies.get('userCodeModification')}`, 
         })
-        await axios.post(baseUrl3, bodyInfo, {
+        console.log([`${cookies.get('companyId')}, ${cookies.get('orderNo')}, ${cookies.get('orderDate')}, ${cookies.get('orderStatus')}, ${cookies.get('deliveryDate')}, ${cookies.get('userCodeModification')}`])
+        axios.post(baseUrl3, bodyInfo, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -75,6 +76,12 @@ export default class Entry extends React.Component{
 
       handleClick = e => {
         window.location.href="/item-list-on-order";
+    }
+    handleClick2 = e => {
+        console.log('click1')
+    }
+    handleClick3 = e => {
+        console.log('click2')
     }
     
       handleChange = async e => {
@@ -171,9 +178,26 @@ export default class Entry extends React.Component{
                     let res = document.querySelector('#botonChange');
                     res.innerHTML=""
                     res.innerHTML += `
-                        <Button className="b2" type="submit">Save Item</Button>
-                        <Button className="b2" type="submit" style="color: red,">Delete Item</Button>
-                    `
+                        
+                        `
+                    let res2 = document.querySelector('#newBotton');
+                    res2.innerHTML=""
+                    res2.innerHTML += `
+                        <Button style="
+                            background-color: #5dd65d;
+                            box-shadow: 2px 2px 5px rgb(62,74,129);
+                            margin-right: 20px;
+                            border-radius: 5px;
+                            color: withe;
+                        ">Save Item</Button>
+                        <Button style="
+                        background-color: #d65d5d;
+                        box-shadow: 2px 2px 5px rgb(62,74,129);
+                        margin-right: 20px;
+                        border-radius: 5px;
+                        color: withe;
+                        ">Delete Item</Button>
+                        `
                     console.log(res)
                 }
             } )
@@ -235,6 +259,7 @@ export default class Entry extends React.Component{
                             <Button className="b2" type="submit">Add Item to Order</Button>
                         </div>
                     </Form>
+                    <div id="newBotton"></div>
                         <hr></hr>                    
                     <button className="buttom2" onClick={this.handleClick}>Item List on Order</button>
                     <Form>
