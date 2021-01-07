@@ -168,7 +168,7 @@ export default class Inquiry extends React.Component{
                     </Form>
                     <Form>
                         <Row>
-                            <Col>
+                            <Col xs={5}>
                             <Form.Label>Brand</Form.Label>
                             <Form.Control disabled placeholder="Brand" name="brand" defaultValue={this.state.itemData.brand} />
                             </Col>

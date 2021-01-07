@@ -9,6 +9,7 @@ const cookies = new Cookies()
 const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";   
 const baseUrl2 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
 const baseUrl3 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Close";   
+const baseUrl4 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Suspend";   
 
 export default class Entry extends React.Component{
 
@@ -56,21 +57,35 @@ export default class Entry extends React.Component{
             deliveryDate: `${cookies.get('deliveryDate')}`,
             userCodeModification: `${cookies.get('userCodeModification')}`, 
         })
-        console.log([`${cookies.get('companyId')}, ${cookies.get('orderNo')}, ${cookies.get('orderDate')}, ${cookies.get('orderStatus')}, ${cookies.get('deliveryDate')}, ${cookies.get('userCodeModification')}`])
-        axios.post(baseUrl3, bodyInfo, {
+        axios.put(baseUrl3, bodyInfo, {
             headers: {
                 'Content-Type': 'application/json',
             }
         })
         .then(response => {
-            console.log(response)
+            alert('Order closed!')
             return response.data
         })
-        .then(response => {
-            if(response){
-                console.log(response.data)
-                alert('Order closed!')
+      }
+
+      handleSubmit1 = e => {
+        e.preventDefault();
+        const bodyInfo = JSON.stringify({
+            companyId: `${cookies.get('companyId')}`,
+            orderNo: `${cookies.get('orderNo')}`,
+            orderDate: `${cookies.get('orderDate')}`,
+            orderStatus: `${cookies.get('orderStatus')}`,
+            deliveryDate: `${cookies.get('deliveryDate')}`,
+            userCodeModification: `${cookies.get('userCodeModification')}`, 
+        })
+        axios.put(baseUrl4, bodyInfo, {
+            headers: {
+                'Content-Type': 'application/json',
             }
+        })
+        .then(response => {
+            alert('Order suspended!')
+            return response.data
         })
       }
 
@@ -218,6 +233,7 @@ export default class Entry extends React.Component{
         }else {
             alert('need a cases number')
         }
+
     }
      
     render(){
@@ -307,7 +323,7 @@ export default class Entry extends React.Component{
                         </Row>
                     </Form>
                     <Form.Group className="buttoms">
-                        <Button>Suspend Order</Button>
+                        <Button onClick={this.handleSubmit1}>Suspend Order</Button>
                         <Button className="red" onClick={this.handleSubmit}>Close Order</Button>
                     </Form.Group>
                     </Container>
