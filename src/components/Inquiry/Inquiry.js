@@ -143,6 +143,7 @@ export default class Inquiry extends React.Component{
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
                         <Form.Control as="select" value={this.state.value} onChange={this.handleChange1}>
+                        <option></option>
                         {this.state.stores[0].map(e => (    
                            <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
                                 {e.companyName}

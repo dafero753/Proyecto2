@@ -10,7 +10,6 @@ const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryap
 const cookies = new Cookies()
 
 
-
 export default class Work extends React.Component{
 
     constructor(props){
@@ -27,15 +26,13 @@ export default class Work extends React.Component{
         }; 
         this.handleChange = this.handleChange.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
+        this.handleClick = this.handleClick.bind(this);
       }     
 
-      handleclick = e =>{
-          e.preventDefault();
-        console.log(HTMLButtonElement)
+    handleClick = e =>{
+        console.log('hola')
     }
-    handleThisClick = e => {
-        console.log('click')
-    }
+    
     handleChange = async e => {
         await this.setState({
             form:{
@@ -70,26 +67,22 @@ export default class Work extends React.Component{
             res.innerHTML=""
             for (let item of response.data){
                 res.innerHTML += `
-                <script>
-                    handleThisClick = e => {
-                        console.log('click')
-                    }
-                </script>
+                
                 <tr>
                     <td>${item.orderNo}</td>
                     <td>${item.deliveryDate}</td>
                     <td>
-                        <button style="
+                            <button id="theButton "style="
                             border-radius: 5px;
                             /* color: darkred; */
                             background-color: rgb(233,184,25);
                             border-radius: 5px;
                             color: rgb(21,13,97);
-                        "
-                        onClick="handleThisClick()"
-                        >open</button>
+                        " 
+                            >open</button>
                     </td>
-                </tr>`
+                </tr>
+                    `
             }
         }.bind(this))  
         .catch(function(error) {
@@ -148,7 +141,8 @@ export default class Work extends React.Component{
                 <Form onSubmit={(e)=>this.CreateNewOrder(e)}>
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
-                        <Form.Control as="select" value={this.state.value} onChange={this.handleChange1}>
+                        <Form.Control as="select" value={this.state.value} onChange={this.handleChange1} defaultValue="hola">
+                            <option></option>
                         {this.state.stores[0].map(e => (    
                            <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
                                 {e.companyName}
@@ -187,9 +181,7 @@ export default class Work extends React.Component{
                             <td>-</td>
                             <td>-</td>
                             <td>
-                                <form onSubmit={this.handleclick}>
-                                    <button className="buttonOrder">open</button>
-                                </form>
+                                <button className="buttonOrder" onClick={this.handleClick}>open</button>
                             </td>
                         </tr>
                         <tr>

@@ -198,20 +198,20 @@ export default class Entry extends React.Component{
                     let res2 = document.querySelector('#newBotton');
                     res2.innerHTML=""
                     res2.innerHTML += `
-                        <Button style="
+                        <button id="ThisButton"style="
                             background-color: #5dd65d;
                             box-shadow: 2px 2px 5px rgb(62,74,129);
                             margin-right: 20px;
                             border-radius: 5px;
                             color: withe;
-                        ">Save Item</Button>
-                        <Button style="
+                        ">Save Item</button>
+                        <button style="
                         background-color: #d65d5d;
                         box-shadow: 2px 2px 5px rgb(62,74,129);
                         margin-right: 20px;
                         border-radius: 5px;
                         color: withe;
-                        ">Delete Item</Button>
+                        ">Delete Item</button>
                         `
                     console.log(res)
                 }
@@ -233,7 +233,7 @@ export default class Entry extends React.Component{
         }else {
             alert('need a cases number')
         }
-
+        document.querySelector("#myForm").reset();
     }
      
     render(){
@@ -260,7 +260,7 @@ export default class Entry extends React.Component{
                         </Form.Group>
                     </Form>
                         <hr></hr>
-                    <Form onSubmit={e => this.getItemInfo(e)}>    
+                    <Form onSubmit={e => this.getItemInfo(e)} id="myForm">    
                         <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
                             <Form.Control  type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>

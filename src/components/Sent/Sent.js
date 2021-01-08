@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Form, Col, Table, Row } from 'react-bootstrap';
+import { Button, Container, Form, Col, Table } from 'react-bootstrap';
 import './style.css';
 import LayoutTwo from '../LayoutTwo/LayoutTwo';
 import Cookies from 'universal-cookie';

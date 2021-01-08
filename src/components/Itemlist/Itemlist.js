@@ -32,7 +32,6 @@ export default class Itemlist extends React.Component{
                     <td>${item.description}</td>
                     <td>${item.size}</td>
                     <td>${item.orderCases}</td>
-                    <td>${item.orderUnits}</td>
                     <td>${item.total}</td>
                 </tr>`
             }
@@ -55,7 +54,6 @@ export default class Itemlist extends React.Component{
                                 <th>Description</th>
                                 <th>Size</th>
                                 <th>Cases</th>
-                                <th>Units</th>
                                 <th>Total$</th>
                             </tr>
                         </thead>
