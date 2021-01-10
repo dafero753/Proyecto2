@@ -43,3 +43,21 @@ hr {
     background-color: white;
     color: red;
 }
+
+.buttonSave {
+    background-color: rgb(32, 145, 15);
+    box-shadow: 2px 2px 5px rgb(40, 72, 31);
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+    width: 30%;
+}
+
+.buttonDelete {
+    background-color: rgb(189, 56, 56);
+    box-shadow: 2px 2px 5px rgb(52, 32, 32);
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+    width: 30%;
+}

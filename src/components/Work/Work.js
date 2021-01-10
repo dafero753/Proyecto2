@@ -22,15 +22,21 @@ export default class Work extends React.Component{
                 UserCodeCreation: '',
             },
             data: '',
-            stores: [cookies.get('stores')]
+            stores: [cookies.get('stores')],
+            items: [],
         }; 
         this.handleChange = this.handleChange.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleClick = this.handleClick.bind(this);
       }     
 
-    handleClick = e =>{
-        console.log('hola')
+    handleClick = index =>{
+        console.log(this.state.items[index])
+        cookies.set('orderNo', this.state.items[index].orderNo, {path: "/"});
+        cookies.set('deliveryDate', this.state.items[index].deliveryDate, {path: "/"});
+        cookies.set('userCodeCreation', this.state.items[index].userCodeCreation, {path: "/"});
+        window.location.href="/entry-orders";  
+        document.querySelector("#workForm").reset();
     }
     
     handleChange = async e => {
@@ -62,8 +68,12 @@ export default class Work extends React.Component{
         });
         await axios
         .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderQueries/${this.state.form.companyId}/O`)
-        .then(function(response) {         
-            let res = document.querySelector('#res');
+        .then(function(response) {   
+            this.setState({
+                ...this.state,
+                items: response.data
+            })      
+            /*let res = document.querySelector('#res');
             res.innerHTML=""
             for (let item of response.data){
                 res.innerHTML += `
@@ -74,7 +84,6 @@ export default class Work extends React.Component{
                     <td>
                             <button id="theButton "style="
                             border-radius: 5px;
-                            /* color: darkred; */
                             background-color: rgb(233,184,25);
                             border-radius: 5px;
                             color: rgb(21,13,97);
@@ -83,11 +92,13 @@ export default class Work extends React.Component{
                     </td>
                 </tr>
                     `
-            }
+            }*/
+            console.log(this.state.items)
         }.bind(this))  
         .catch(function(error) {
             console.log(error);
         }); 
+        console.log(this.state)
     }    
 
     CreateNewOrder = async(e) => {
@@ -131,6 +142,7 @@ export default class Work extends React.Component{
         .catch ( error => {
             console.error('Error:', error);
         })
+        document.querySelector("#workForm").reset();
     }
 
     render(){
@@ -138,7 +150,7 @@ export default class Work extends React.Component{
             <LayoutTwo>
                 <Container className="container-bottom">
                 <h2>Work with orders</h2>
-                <Form onSubmit={(e)=>this.CreateNewOrder(e)}>
+                <Form id="workForm" onSubmit={(e)=>this.CreateNewOrder(e)}>
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
                         <Form.Control as="select" value={this.state.value} onChange={this.handleChange1} defaultValue="hola">
@@ -177,18 +189,18 @@ export default class Work extends React.Component{
                         </tr>
                     </thead>
                     <tbody id="res">
-                        <tr>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>
-                                <button className="buttonOrder" onClick={this.handleClick}>open</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        {
+                            this.state.items.map((item, index) => {
+                                return(
+                                <tr key={index}>
+                                    <td>{item.orderNo}</td>
+                                    <td>{item.deliveryDate}</td>
+                                    <td>
+                                        <button onClick={() => {this.handleClick(index)}}>open</button>
+                                    </td>
+                                </tr>)
+                            })
+                        }
                     </tbody>
                     </Table>
                 </Container>

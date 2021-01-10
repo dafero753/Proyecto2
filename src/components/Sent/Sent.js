@@ -26,14 +26,20 @@ export default class Sent extends React.Component{
                 orderNo: '',
                 orderDate: '',
             },
-            stores: [cookies.get('stores')]
+            stores: [cookies.get('stores')],
+            items: [],
         }; 
         this.handleChange = this.handleChange.bind(this);
         //this.handleChange1 = this.handleChange1.bind(this);
       }  
     
-    handleClick = e => {
-        window.location.href="/detail-orders";
+    handleClick = index => {
+        console.log(this.state.items[index])
+        cookies.set('orderNo', this.state.items[index].orderNo, {path: "/"});
+        cookies.set('orderBy', this.state.items[index].orderedBy, {path: "/"});
+        cookies.set('orderDate', this.state.items[index].orderDate, {path: "/"});
+        window.location.href="/detail-orders";  
+        document.querySelector("#sendForm").reset();
     }
 
     handleChange = async e => {
@@ -89,7 +95,12 @@ export default class Sent extends React.Component{
                 cookies.set('orderDate', resp.orderDate, {path: "/"});   
                 console.log(response)
 
-                let res = document.querySelector('#res2');
+                this.setState({
+                    ...this.state,
+                    items: response
+                })   
+
+                /*let res = document.querySelector('#res2');
                 res.innerHTML=""
                 for (let item of response){
                     res.innerHTML += `
@@ -110,7 +121,7 @@ export default class Sent extends React.Component{
                             >></button>
                         </td>
                     </tr>`
-                }
+                }*/
             }else {
                 alert("something went wrong");
             }
@@ -125,10 +136,11 @@ export default class Sent extends React.Component{
                 <LayoutTwo className="border uplay">
                     <Container className="container-bottom">
                     <h2>Sent Orders</h2>
-                    <Form onSubmit={(e)=>this.go(e)}>
+                    <Form id="sendForm" onSubmit={(e)=>this.go(e)}>
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
                         <Form.Control as="select" value={this.state.value} onChange={this.handleChange1}>
+                        <option></option>
                         {this.state.stores[0].map(e => (    
                            <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
                                 {e.companyName}
@@ -163,21 +175,18 @@ export default class Sent extends React.Component{
                             </tr>
                         </thead>
                         <tbody id="res2">
-                            <tr>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>
-                                <button 
-                                className="buttom3"
-                                onClick={this.handleClick}
-                                >{'>'}</button>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            </tr>
+                            {
+                                this.state.items.map((item, index) => {
+                                    return(
+                                    <tr key={index}>
+                                        <td>{item.orderNo}</td>
+                                        <td>{item.orderDate}</td>
+                                        <td>
+                                            <button onClick={() => {this.handleClick(index)}}>open</button>
+                                        </td>
+                                    </tr>)
+                                })
+                            }
                         </tbody>
                     </Table>
                     </Container>

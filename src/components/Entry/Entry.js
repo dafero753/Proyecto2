@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import './style.css';
@@ -10,6 +10,9 @@ const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryap
 const baseUrl2 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
 const baseUrl3 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Close";   
 const baseUrl4 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Suspend";   
+const baseUrl5 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('ItemcCode')}`;   
+const baseUrl6 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('ItemcCode')}`;   
+
 
 export default class Entry extends React.Component{
 
@@ -43,8 +46,11 @@ export default class Entry extends React.Component{
                 date: '',
                 oldPrice:'',
             },
+            buttons: [],
+            existed: false,
         }; 
       } 
+     
 
 
       handleSubmit = e => {
@@ -92,14 +98,51 @@ export default class Entry extends React.Component{
       handleClick = e => {
         window.location.href="/item-list-on-order";
     }
-    handleClick2 = e => {
-        console.log('click1')
-    }
     handleClick3 = e => {
-        console.log('click2')
+        console.log('click on save')
+        e.preventDefault();
+        const bodyInfo = JSON.stringify({
+            companyId: `${cookies.get('companyId')}`,
+            OrderNo: `${cookies.get('orderNo')}`,
+            ItemCode: `${this.state.itemData.itemCode}`,
+            OrderCases: `${this.state.form.OrderCases}`,
+            Price: `${this.state.itemData.price}`,
+            company: null,
+        })
+        axios.put(baseUrl3, bodyInfo, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            alert('Item Saved!')
+            return response.data
+        })
     }
     
-      handleChange = async e => {
+    handleClick4 = e => {
+        console.log('click on delete')
+        e.preventDefault();
+        const bodyInfo = JSON.stringify({
+            companyId: `${cookies.get('companyId')}`,
+            OrderNo: `${cookies.get('orderNo')}`,
+            ItemCode: `${this.state.itemData.itemCode}`,
+            OrderCases: `${this.state.form.OrderCases}`,
+            Price: `${this.state.itemData.price}`,
+            company: null,
+        })
+        axios.put(baseUrl3, bodyInfo, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            alert('Item Deleted!')
+            return response.data
+        })
+    }
+    
+    handleChange = async e => {
         await this.setState({
             form:{
                 ...this.state.form,
@@ -138,8 +181,7 @@ export default class Entry extends React.Component{
                 cookies.set('dealOff', resp.dealOff, {path: "/"});
                 cookies.set('status', resp.status, {path: "/"});
                 cookies.set('date', resp.date, {path: "/"});
-                cookies.set('oldPrice', resp.oldPrice, {path: "/"});  
-                console.log(resp)            
+                cookies.set('oldPrice', resp.oldPrice, {path: "/"});            
             }
             else {
                 alert("wrong code");
@@ -168,7 +210,6 @@ export default class Entry extends React.Component{
                 oldPrice: `${cookies.get('oldPrice')}`,           
             }
         });
-        console.log(this.state)
 
         const itemInfo2 = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
@@ -185,17 +226,15 @@ export default class Entry extends React.Component{
                 }
             })
             .then ( response => {
-                console.log(response)
+                console.log(response.data)
                 if(response.data.exist == 0){
                 return response.data;
                 }else{
+                    this.setState({ existed: true});
                     alert('Item already exist in order')
                     let res = document.querySelector('#botonChange');
                     res.innerHTML=""
-                    res.innerHTML += `
-                        
-                        `
-                    let res2 = document.querySelector('#newBotton');
+                    /*let res2 = document.querySelector('#newBotton');
                     res2.innerHTML=""
                     res2.innerHTML += `
                         <button id="ThisButton"style="
@@ -212,8 +251,9 @@ export default class Entry extends React.Component{
                         border-radius: 5px;
                         color: withe;
                         ">Delete Item</button>
-                        `
-                    console.log(res)
+                        `*/
+                    
+                    console.log('entro!!')
                 }
             } )
             .then ( response => {
@@ -234,6 +274,7 @@ export default class Entry extends React.Component{
             alert('need a cases number')
         }
         document.querySelector("#myForm").reset();
+        console.log(this.state.buttons)
     }
      
     render(){
@@ -275,7 +316,17 @@ export default class Entry extends React.Component{
                             <Button className="b2" type="submit">Add Item to Order</Button>
                         </div>
                     </Form>
-                    <div id="newBotton"></div>
+                        {
+                            this.state.existed ? (
+                                <div>
+                                    <button className="buttonSave" onClick={this.handleClick3}>Save</button>
+                                    <button className="buttonDelete" onClick={this.handleClick4}>Delete</button>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )
+                        }
+                      
                         <hr></hr>                    
                     <button className="buttom2" onClick={this.handleClick}>Item List on Order</button>
                     <Form>

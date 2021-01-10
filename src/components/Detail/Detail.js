@@ -3,14 +3,15 @@ import { Container, Form, Row, Col, Table } from 'react-bootstrap'
 import './style.css'
 import LayoutTwo from '../LayoutTwo/LayoutTwo'
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-
+const cookies = new Cookies()
 const dataOrders = []
 
 export default class Detail extends React.Component{
 
     componentDidMount() {
-        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/3/2`)
+        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/1/2`)
         .then(function(response) {      
             let res = document.querySelector('#res4');
             res.innerHTML=""
@@ -26,7 +27,6 @@ export default class Detail extends React.Component{
                 </tr>`
             }
             dataOrders.push(response)
-            console.log(dataOrders[0].data.cases)
         }.bind(this))  
         .catch(function(error) {
             console.log(error);
@@ -34,7 +34,6 @@ export default class Detail extends React.Component{
       }
      
     render(){
-        console.log(dataOrders)
         return(
                 <LayoutTwo className="border uplay">
                     <Container className="container-bottom">
@@ -45,11 +44,11 @@ export default class Detail extends React.Component{
                             <Form.Label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
                                 Order No.
                             </Form.Label>
-                            <Form.Control type="number" />
+                            <Form.Control type="number" defaultValue={cookies.get('orderNo')} disabled/>
                             </Col>
                             <Col>
                             <Form.Label>Order By</Form.Label>
-                            <Form.Control type="text" />
+                            <Form.Control type="text" defaultValue={cookies.get('orderBy')} disabled/>
                             </Col>  
                         </Row>
                         <Row>
@@ -57,7 +56,7 @@ export default class Detail extends React.Component{
                             <Form.Label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
                                 Order Date
                             </Form.Label>
-                            <Form.Control type="date" />
+                            <Form.Control type="date" defaultValue={cookies.get('orderDate')} disabled/>
                             </Col>
                             <Col>
                             <Form.Label>Amount $</Form.Label>
@@ -105,55 +104,7 @@ export default class Detail extends React.Component{
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>                            
+                            </tr>                         
                         </tbody>
                     </Table>
                     </Container>

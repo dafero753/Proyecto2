@@ -39,7 +39,6 @@ export default class Inquiry extends React.Component{
                 oldPrice:'',
             }
         }; 
-        this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange = this.handleChange.bind(this);
       }   
       
@@ -50,27 +49,8 @@ export default class Inquiry extends React.Component{
                 [e.target.name]: e.target.value, 
             },
         })
+        document.querySelector('#itemForm')
     } 
-
-    handleChange1 = async e => {
-        const options = e.target.options
-        const select = []
-        const price= []
-
-        for(let i = 0; i < options.length; i++) {
-            if(options[i].selected) {
-                select.push(options[i].value);
-                price.push(options[i].id);
-            };
-        }
-        await this.setState({
-            form:{
-                ...this.state.form,
-                companyId: select.toString()
-            },
-            data: price.toString()
-        });
-    }    
 
     getItemInfo = async(e) => {
         e.preventDefault();
@@ -131,7 +111,6 @@ export default class Inquiry extends React.Component{
                 oldPrice: `${cookies.get('oldPrice')}`,           
             }
         });
-        console.log(this.state)
     }
      
     render(){
@@ -153,15 +132,14 @@ export default class Inquiry extends React.Component{
                         </Form.Control> 
                     </Form.Group>
                     </Form>
-                    <Form id="itemForm" onSubmit={e => this.getItemInfo(e)}>
-                    <Form.Group >
+                    <Form id="itemForm" onChange={e => this.getItemInfo(e)}>
+                        <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control  type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>
+                            <Form.Control id="ItemCode" type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>
                         </Form.Group>
-                        <Button type="submit">Get Info</Button>
-                        </Form>
+                    </Form>
                         <hr></hr>
-                        <Form>
+                    <Form>
                         <Form.Group>
                             <Form.Label>Item No°</Form.Label>
                             <Form.Control type="text" disabled placeholder="item N°" defaultValue={this.state.form.ItemCode} />
