@@ -62,7 +62,6 @@ export default class Entry extends React.Component{
             orderStatus: `${cookies.get('orderStatus')}`,
             deliveryDate: `${cookies.get('deliveryDate')}`,
             userCodeModification: `${cookies.get('userCodeModification')}`, 
-            window.location.href="/work-with-orders";
         })
         axios.put(baseUrl3, bodyInfo, {
             headers: {
@@ -73,6 +72,7 @@ export default class Entry extends React.Component{
             alert('Order closed!')
             return response.data
         })
+        window.location.href="/work-with-orders";
       }
 
       handleSubmit1 = e => {
