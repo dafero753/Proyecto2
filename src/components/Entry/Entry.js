@@ -70,9 +70,9 @@ export default class Entry extends React.Component{
         })
         .then(response => {
             alert('Order closed!')
+            window.location.href="/work-with-orders";
             return response.data
         })
-        window.location.href="/work-with-orders";
       }
 
       handleSubmit1 = e => {
