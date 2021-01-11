@@ -9,8 +9,7 @@ export default class Layout extends React.Component{
         return(
             <Container fluid className="layout">
                 <header className="d-flex justify-content-center flex-column align-items-center">
-                    <img src={ImgAgs} alt="ags" className="image"/>   
-                    <Menu></Menu>                 
+                    <img src={ImgAgs} alt="ags" className="image"/>               
                 </header>
                 <Container className="dinamic-content">
                     {this.props.children}

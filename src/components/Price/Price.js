@@ -27,6 +27,8 @@ export default class Price extends React.Component{
             for (let item of response.data){
                 res.innerHTML += `
                 <tr>
+                    <td>${item.brand}</td>
+                    <td>${item.pack}</td>
                     <td>${item.itemCode}</td>
                     <td>${item.description}</td>
                     <td>${item.priceNow}</td>
@@ -50,13 +52,15 @@ export default class Price extends React.Component{
                     <Table striped bordered hover size="sm" className="table1">
                         <thead>
                             <tr>
+                                <th>Brand</th>
+                                <th>Pack</th>
                                 <th>Item N°.</th>
                                 <th>Description</th>
                                 <th>$ Now</th>
                                 <th>Before</th>
                                 <th>Diff</th>
                                 <th>%</th>
-                            </tr>
+                            </tr>   
                         </thead>
                         <tbody id="res3">
                             <tr>

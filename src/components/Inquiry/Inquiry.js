@@ -39,25 +39,43 @@ export default class Inquiry extends React.Component{
                 oldPrice:'',
             }
         }; 
-        this.handleChange = this.handleChange.bind(this);
       }   
       
-      handleChange = async e => {
+
+    handleChange1 = async e => {
+        const options = e.target.options
+        const select = []
+        const price= []
+
+        for(let i = 0; i < options.length; i++) {
+            if(options[i].selected) {
+                select.push(options[i].value);
+                price.push(options[i].id);
+            };
+        }
+        await this.setState({
+            form:{
+                ...this.state.form,
+                companyId: select.toString(),
+                PriceLevel: price.toString()
+
+            },
+        });
+    }
+
+    getItemInfo = async(e) => {
+        e.preventDefault();
         await this.setState({
             form:{
                 ...this.state.form,
                 [e.target.name]: e.target.value, 
             },
         })
-        document.querySelector('#itemForm')
-    } 
-
-    getItemInfo = async(e) => {
-        e.preventDefault();
         const itemInfo = JSON.stringify({
-            PriceLevel: `${cookies.get('pricelevel')}`,
+            PriceLevel: `${this.state.form.PriceLevel}`,
             ItemCode: `${this.state.form.ItemCode}`,
         })
+        console.log(itemInfo)
         await axios.post(baseUrl, itemInfo, {
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +142,7 @@ export default class Inquiry extends React.Component{
                         <Form.Control as="select" value={this.state.value} onChange={this.handleChange1}>
                         <option></option>
                         {this.state.stores[0].map(e => (    
-                           <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
+                           <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId" >
                                 {e.companyName}
                             </option>
                         ))
@@ -135,7 +153,7 @@ export default class Inquiry extends React.Component{
                     <Form id="itemForm" onChange={e => this.getItemInfo(e)}>
                         <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control id="ItemCode" type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>
+                            <Form.Control id="ItemCode" type="text" autoFocus="autofocus" name="ItemCode"/>
                         </Form.Group>
                     </Form>
                         <hr></hr>

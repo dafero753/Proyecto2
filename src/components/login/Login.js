@@ -55,6 +55,7 @@ export default class Login extends React.Component{
                 cookies.set('UserCode', this.state.form.UserCode, {path: "/"});
                 cookies.set('stores', resp.stores, {path: "/"});
                 window.location.href="/order-entry-system";
+                console.log(resp)
             }else {
                 alert("user or password invalid");
             }

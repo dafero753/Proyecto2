@@ -9,6 +9,10 @@ const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryap
 
 const cookies = new Cookies()
 
+var curr = new Date();
+curr.setDate(curr.getDate() - 1);
+var date = curr.toISOString().substr(0,10);
+
 
 export default class Work extends React.Component{
 
@@ -102,6 +106,7 @@ export default class Work extends React.Component{
     }    
 
     CreateNewOrder = async(e) => {
+        console.log(this.state.form.deliveryDate)
         e.preventDefault();
         const create = JSON.stringify({
             companyId: `${this.state.form.companyId}`, 
@@ -153,7 +158,7 @@ export default class Work extends React.Component{
                 <Form id="workForm" onSubmit={(e)=>this.CreateNewOrder(e)}>
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
-                        <Form.Control as="select" value={this.state.value} onChange={this.handleChange1} defaultValue="hola">
+                        <Form.Control as="select" value={this.state.value} onChange={this.handleChange1} >
                             <option></option>
                         {this.state.stores[0].map(e => (    
                            <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
@@ -172,7 +177,9 @@ export default class Work extends React.Component{
                         type="date" 
                         placeholder="date" 
                         name="deliveryDate"
-                        onChange={this.handleChange}/>
+                        onChange={this.handleChange}
+                        defaultValue={date}
+                        min={date}/>
                         </Col>
                     </Form.Group>
                     <Button type="submit" className="buttonOrder1">Create New Order</Button>

@@ -10,8 +10,8 @@ const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryap
 const baseUrl2 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
 const baseUrl3 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Close";   
 const baseUrl4 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Suspend";   
-const baseUrl5 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('ItemcCode')}`;   
-const baseUrl6 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('ItemcCode')}`;   
+const baseUrl5 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('itemCode')}`;   
+const baseUrl6 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('itemCode')}`;   
 
 
 export default class Entry extends React.Component{
@@ -92,6 +92,7 @@ export default class Entry extends React.Component{
         })
         .then(response => {
             alert('Order suspended!')
+            window.location.href="/work-with-orders";
             return response.data
         })
       }
@@ -100,8 +101,7 @@ export default class Entry extends React.Component{
         window.location.href="/item-list-on-order";
     }
     handleClick3 = e => {
-        console.log('click on save')
-        e.preventDefault();
+                e.preventDefault();
         const bodyInfo = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
             OrderNo: `${cookies.get('orderNo')}`,
@@ -110,35 +110,34 @@ export default class Entry extends React.Component{
             Price: `${this.state.itemData.price}`,
             company: null,
         })
-        axios.put(baseUrl3, bodyInfo, {
+        console.table(bodyInfo)
+        axios.put(baseUrl5, bodyInfo, {
             headers: {
                 'Content-Type': 'application/json',
             }
         })
         .then(response => {
+            console.table(response.data)
             alert('Item Saved!')
             return response.data
         })
     }
     
     handleClick4 = e => {
-        console.log('click on delete')
         e.preventDefault();
         const bodyInfo = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
             OrderNo: `${cookies.get('orderNo')}`,
             ItemCode: `${this.state.itemData.itemCode}`,
-            OrderCases: `${this.state.form.OrderCases}`,
-            Price: `${this.state.itemData.price}`,
-            company: null,
         })
-        axios.put(baseUrl3, bodyInfo, {
+        axios.delete(baseUrl6, {
             headers: {
                 'Content-Type': 'application/json',
             }
         })
         .then(response => {
             alert('Item Deleted!')
+            window.location.replace('');
             return response.data
         })
     }
@@ -150,10 +149,6 @@ export default class Entry extends React.Component{
                 [e.target.name]: e.target.value, 
             },
         })
-    }  
-      
-    getItemInfo = async(e) => {
-        e.preventDefault();
         const itemInfo = JSON.stringify({
             PriceLevel: `${cookies.get('pricelevel')}`,
             ItemCode: `${this.state.form.ItemCode}`,
@@ -211,6 +206,10 @@ export default class Entry extends React.Component{
                 oldPrice: `${cookies.get('oldPrice')}`,           
             }
         });
+    }  
+      
+    getItemInfo = async(e) => {
+        e.preventDefault();
 
         const itemInfo2 = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
@@ -274,8 +273,8 @@ export default class Entry extends React.Component{
         }else {
             alert('need a cases number')
         }
-        document.querySelector("#myForm").reset();
         console.log(this.state.buttons)
+        document.querySelector("#myForm").reset();
     }
      
     render(){
@@ -305,13 +304,13 @@ export default class Entry extends React.Component{
                     <Form onSubmit={e => this.getItemInfo(e)} id="myForm">    
                         <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control  type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>
+                            <Form.Control  type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange} defaultValue={this.state.itemData.itemCode}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Order quantity</Form.Label>
                             <br></br>
                             <Form.Label>Cases</Form.Label>
-                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange}/>
+                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange} pattern="^[0-9]+" min="1"/>
                         </Form.Group>
                         <div id="botonChange">
                             <Button className="b2" type="submit">Add Item to Order</Button>
@@ -354,10 +353,16 @@ export default class Entry extends React.Component{
                         <Form.Label>Descrption</Form.Label>
                         <Form.Control type="text" disabled name="description" defaultValue={this.state.itemData.description} />
                     </Form.Group>
-                    <Form.Group>
+                    <Row>
+                        <Col>
+                        <Form.Label>Item Code</Form.Label>
+                        <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.itemCode} />
+                        </Col>
+                        <Col>
                         <Form.Label>UPC</Form.Label>
                         <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.upc} />
-                    </Form.Group>
+                        </Col>
+                    </Row>
                     <Form className="form4"> 
                         <Row>
                             <Col>

@@ -12,7 +12,10 @@ export default class Menu extends React.Component{
         >
             <Nav.Item>
                 <Nav.Link href="/order-entry-system">HOME</Nav.Link>
-                <Nav.Link href="/auxiliaries">AUX MANT</Nav.Link>
+                { this.props.role == 10 || this.props.role == 1?
+                    <Nav.Link href="/auxiliaries">AUX MANT</Nav.Link>
+                    : <div></div>
+                }
             </Nav.Item>
         </Nav>
         )

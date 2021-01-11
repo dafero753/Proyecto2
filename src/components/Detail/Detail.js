@@ -10,14 +10,26 @@ const dataOrders = []
 
 export default class Detail extends React.Component{
 
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            items: [],
+        }; 
+      } 
+
     componentDidMount() {
         axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/1/2`)
-        .then(function(response) {      
+        .then(function(response) {   
+            console.log(response.data)
+            this.setState({items: response.data})   
             let res = document.querySelector('#res4');
             res.innerHTML=""
             for (let item of response.data.items){
                 res.innerHTML += `
                 <tr>
+                    <td>${item.brand}</td>
+                    <td>${item.pack}</td>
                     <td>${item.itemCode}</td>
                     <td>${item.description}</td>
                     <td>${item.size}</td>
@@ -34,6 +46,7 @@ export default class Detail extends React.Component{
       }
      
     render(){
+        console.log(cookies.get('orderDate'))
         return(
                 <LayoutTwo className="border uplay">
                     <Container className="container-bottom">
@@ -56,11 +69,11 @@ export default class Detail extends React.Component{
                             <Form.Label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
                                 Order Date
                             </Form.Label>
-                            <Form.Control type="date" defaultValue={cookies.get('orderDate')} disabled/>
+                            <Form.Control type="text" defaultValue={cookies.get('orderDate')} disabled/>
                             </Col>
                             <Col>
                             <Form.Label>Amount $</Form.Label>
-                            <Form.Control type="number" />
+                            <Form.Control type="number" defaultValue={this.state.items.total} disabled/>
                             </Col>  
                         </Row>
                         <Row>
@@ -68,24 +81,22 @@ export default class Detail extends React.Component{
                             <Form.Label className="my-1 mr-2" htmlFor="inlineFormCustomSelectPref">
                                 Total Cases
                             </Form.Label>
-                            <Form.Control />
+                            <Form.Control defaultValue={this.state.items.cases} disabled/>
                             </Col>
-                            <Col>
-                            <Form.Label>Total Units</Form.Label>
-                            <Form.Control type="number" />
-                            </Col>  
                         </Row>
                         <hr></hr>
                     </Form>
                     <Table striped bordered hover size="sm" className="table1">
                         <thead>
                             <tr>
+                                <th>Brand</th>
+                                <th>Pack</th>
                                 <th>Item N°.</th>
                                 <th>Description</th>
                                 <th>Size</th>
                                 <th>Cases</th>
-                                <th>Unit $</th>
-                                <th>Total $</th>
+                                <th>Case$</th>
+                                <th>Total$</th>
                             </tr>
                         </thead>
                         <tbody id="res4">
