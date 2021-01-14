@@ -29,11 +29,15 @@ export default class Stores extends React.Component{
                                     <option>Chain 4</option>
                                     <option>Chain 5</option>
                                 </Form.Control>
-                                <Form>
-                                <Row>
-                                    <Col>
-                                    <Form.Label>Code</Form.Label>
-                                    <Form.Control placeholder="Code" />
+                                <Form className="form4">
+                                    <Row>
+                                    <Form.Label as="legend" column sm={4}>
+                                    <p>Store Type</p>
+                                    </Form.Label>
+                                    <Col xs={9}>
+                                    <Form.Check type="radio" name="storeType" inline label="Single" />
+                                    <Form.Check type="radio" name="storeType" inline label="Chain" />
+                                    <Form.Check type="radio" name="storeType" inline label="Distributor" />
                                     </Col>
                                     <Col>
                                     <Form.Label>Active</Form.Label>
@@ -67,6 +71,26 @@ export default class Stores extends React.Component{
                                 <Form.Label>Contact</Form.Label>
                                 <Form.Control type="text" placeholder="Contact" />
                             </Form.Group>
+                            <Form className="form4">
+                                    <Row>
+                                    <Col>
+                                    <Form.Label>
+                                    Price Level
+                                    </Form.Label>
+                                    <Col>
+                                    <Form.Control type="number" placeholder="Price Level" />
+                                    </Col>
+                                    </Col>  
+                                    <Col>
+                                    <Form.Label>
+                                    Store Code
+                                    </Form.Label>
+                                    <Col>
+                                    <Form.Control type="number" placeholder="Store Code" />
+                                    </Col>
+                                    </Col> 
+                                </Row>
+                            </Form>
                             <Button className="b3">Save</Button>
                         </Form>
                     </Container>

@@ -61,3 +61,10 @@ hr {
     border-radius: 5px;
     width: 30%;
 }
+.container-form {
+    font-size: 12px;
+}
+
+.form-control{
+    font-size: 0.8rem;
+}

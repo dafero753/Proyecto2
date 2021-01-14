@@ -4,13 +4,15 @@ import axios from 'axios';
 import './style.css';
 import LayoutTwo from '../LayoutTwo/LayoutTwo';
 import Cookies from 'universal-cookie';
+import toastr from 'reactjs-toastr';
+import swal from 'sweetalert';
 
 const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderHeaders";
 
 const cookies = new Cookies()
 
 var curr = new Date();
-curr.setDate(curr.getDate() - 1);
+curr.setDate(curr.getDate());
 var date = curr.toISOString().substr(0,10);
 
 
@@ -40,6 +42,8 @@ export default class Work extends React.Component{
         cookies.set('deliveryDate', this.state.items[index].deliveryDate, {path: "/"});
         cookies.set('userCodeCreation', this.state.items[index].userCodeCreation, {path: "/"});
         window.location.href="/entry-orders";  
+        cookies.remove('thisItemCode')
+        cookies.remove('cases')
         document.querySelector("#workForm").reset();
     }
     
@@ -138,8 +142,13 @@ export default class Work extends React.Component{
                 cookies.set('userCodeCreationNavigation', resp.userCodeCreationNavigation, {path: "/"});
                 cookies.set('userCodeModificationNavigation', resp.userCodeModificationNavigation, {path: "/"});
                 cookies.set('pricelevel', this.state.data, {path: "/"});
-                alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
-                window.location.href="/entry-orders";      
+                //alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
+                //toastr.success('Success Message', 'Title', {displayDuration:3000})
+                swal("Good job!", `Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`, "success");
+                //window.location.href="/entry-orders";   
+                window.setTimeout(function(){ 
+                    window.location.href = "/entry-orders"; 
+                   }, 2500);   
             }else {
                 alert("something went wrong");
             }

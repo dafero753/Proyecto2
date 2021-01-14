@@ -16,13 +16,29 @@ export default class Itemlist extends React.Component{
             form:{
                 companyId: '',             
             },
+            items: [],
         }; 
       }  
+
+      handleClick = index =>{
+        console.log(this.state.items[index])
+        cookies.set('thisOrderNo', this.state.items[index].orderNo, {path: "/"});
+        cookies.set('thisDeliveryDate', this.state.items[index].deliveryDate, {path: "/"});
+        cookies.set('userCodeCreation', this.state.items[index].userCodeCreation, {path: "/"});
+        cookies.set('cases', this.state.items[index].orderCases, {path: "/"});
+        cookies.set('thisItemCode', this.state.items[index].itemCode, {path: "/"});
+        window.location.href="/entry-orders";  
+    }
     
       componentDidMount() {
         axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('priceLevel')}`)
         .then(function(response) { 
-            console.log(response.data)        
+            console.log(response.data)
+            this.setState({
+                ...this.state,
+                items: response.data
+            })  
+            /*          
             let res = document.querySelector('#res3');
             res.innerHTML=""
             for (let item of response.data){
@@ -34,7 +50,7 @@ export default class Itemlist extends React.Component{
                     <td>${item.orderCases}</td>
                     <td>${item.total}</td>
                 </tr>`
-            }
+            }*/
         }.bind(this))  
         .catch(function(error) {
             console.log(error);
@@ -58,6 +74,19 @@ export default class Itemlist extends React.Component{
                             </tr>
                         </thead>
                         <tbody id="res3">
+                            {
+                                this.state.items.map((item, index) => {
+                                    return(
+                                        <tr className="this-link" key={index} onClick={() => {this.handleClick(index)}}>
+                                            <td>{item.itemCode}</td>
+                                            <td>{item.description}</td>
+                                            <td>{item.size}</td>
+                                            <td>{item.orderCases}</td>
+                                            <td>{item.total}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
                             <tr>
                                 <td></td>
                                 <td></td>

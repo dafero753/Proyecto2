@@ -102,9 +102,6 @@ export default class Inquiry extends React.Component{
                 cookies.set('date', resp.date, {path: "/"});
                 cookies.set('oldPrice', resp.oldPrice, {path: "/"});          
             }
-            else {
-                alert("wrong code");
-            }
         })
         .catch ( error => {
             console.error('Error:', error);

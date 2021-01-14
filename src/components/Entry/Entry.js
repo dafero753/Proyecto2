@@ -101,7 +101,7 @@ export default class Entry extends React.Component{
         window.location.href="/item-list-on-order";
     }
     handleClick3 = e => {
-                e.preventDefault();
+        e.preventDefault();
         const bodyInfo = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
             OrderNo: `${cookies.get('orderNo')}`,
@@ -110,7 +110,6 @@ export default class Entry extends React.Component{
             Price: `${this.state.itemData.price}`,
             company: null,
         })
-        console.table(bodyInfo)
         axios.put(baseUrl5, bodyInfo, {
             headers: {
                 'Content-Type': 'application/json',
@@ -179,9 +178,9 @@ export default class Entry extends React.Component{
                 cookies.set('date', resp.date, {path: "/"});
                 cookies.set('oldPrice', resp.oldPrice, {path: "/"});            
             }
-            else {
+            /*else {
                 alert("wrong code");
-            }
+            }*/
         })
         .catch ( error => {
             console.error('Error:', error);
@@ -304,13 +303,13 @@ export default class Entry extends React.Component{
                     <Form onSubmit={e => this.getItemInfo(e)} id="myForm">    
                         <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control  type="text" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange} defaultValue={this.state.itemData.itemCode}/>
+                            <Form.Control  type="number" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange} defaultValue={cookies.get('thisItemCode')}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Order quantity</Form.Label>
                             <br></br>
                             <Form.Label>Cases</Form.Label>
-                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange} pattern="^[0-9]+" min="1"/>
+                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange} pattern="^[0-9]+" min="1"defaultValue={cookies.get('cases')}/>
                         </Form.Group>
                         <div id="botonChange">
                             <Button className="b2" type="submit">Add Item to Order</Button>
@@ -329,60 +328,62 @@ export default class Entry extends React.Component{
                       
                         <hr></hr>                    
                     <button className="buttom2" onClick={this.handleClick}>Item List on Order</button>
-                    <Form>
-                        <Row>
-                            <Col xs={5}>
-                            <Form.Label>Brand</Form.Label>
-                            <Form.Control disabled placeholder="Brand" name="brand" defaultValue={this.state.itemData.brand} />
-                            </Col>
-                            <Col>
-                            <Form.Label>Pack</Form.Label>
-                            <Form.Control disabled placeholder="Pack" name="pack" defaultValue={this.state.itemData.pack} />
-                            </Col>  
-                            <Col>
-                            <Form.Label>Size</Form.Label>
-                            <Form.Control disabled placeholder="Size" name="size" defaultValue={this.state.itemData.size} />
-                            </Col>
-                            <Col>
-                            <Form.Label>UOM</Form.Label>
-                            <Form.Control disabled placeholder="UOM" name="uom" defaultValue={this.state.itemData.uom} />
-                            </Col>  
-                        </Row>
-                    </Form>
-                    <Form.Group>
-                        <Form.Label>Descrption</Form.Label>
-                        <Form.Control type="text" disabled name="description" defaultValue={this.state.itemData.description} />
-                    </Form.Group>
-                    <Row>
-                        <Col>
-                        <Form.Label>Item Code</Form.Label>
-                        <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.itemCode} />
-                        </Col>
-                        <Col>
-                        <Form.Label>UPC</Form.Label>
-                        <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.upc} />
-                        </Col>
-                    </Row>
-                    <Form className="form4"> 
+                    <div className="container-form">
+                        <Form>
+                            <Row>
+                                <Col xs={5}>
+                                <Form.Label>Brand</Form.Label>
+                                <Form.Control disabled placeholder="Brand" name="brand" defaultValue={this.state.itemData.brand} />
+                                </Col>
+                                <Col>
+                                <Form.Label>Pack</Form.Label>
+                                <Form.Control disabled placeholder="Pack" name="pack" defaultValue={this.state.itemData.pack} />
+                                </Col>  
+                                <Col>
+                                <Form.Label>Size</Form.Label>
+                                <Form.Control disabled placeholder="Size" name="size" defaultValue={this.state.itemData.size} />
+                                </Col>
+                                <Col>
+                                <Form.Label>UOM</Form.Label>
+                                <Form.Control disabled placeholder="UOM" name="uom" defaultValue={this.state.itemData.uom} />
+                                </Col>  
+                            </Row>
+                        </Form>
+                        <Form.Group>
+                            <Form.Label>Descrption</Form.Label>
+                            <Form.Control type="text" disabled name="description" defaultValue={this.state.itemData.description} />
+                        </Form.Group>
                         <Row>
                             <Col>
-                            <Form.Label>Case $</Form.Label>
-                            <Form.Control disabled placeholder="Case" />
+                            <Form.Label>Item Code</Form.Label>
+                            <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.itemCode} />
                             </Col>
                             <Col>
-                            <Form.Label>Unit $</Form.Label>
-                            <Form.Control disabled placeholder="Unit" name="price" defaultValue={this.state.itemData.price} />
-                            </Col>  
-                            <Col>
-                            <Form.Label>Deal $</Form.Label>
-                            <Form.Control disabled placeholder="Deal" name="deal" defaultValue={this.state.itemData.deal} />
+                            <Form.Label>UPC</Form.Label>
+                            <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.upc} />
                             </Col>
                         </Row>
-                    </Form>
-                    <Form.Group className="buttoms">
-                        <Button onClick={this.handleSubmit1}>Suspend Order</Button>
-                        <Button className="red" onClick={this.handleSubmit}>Close Order</Button>
-                    </Form.Group>
+                        <Form className="form4"> 
+                            <Row>
+                                <Col>
+                                <Form.Label>Case $</Form.Label>
+                                <Form.Control disabled placeholder="Case" />
+                                </Col>
+                                <Col>
+                                <Form.Label>Unit $</Form.Label>
+                                <Form.Control disabled placeholder="Unit" name="price" defaultValue={this.state.itemData.price} />
+                                </Col>  
+                                <Col>
+                                <Form.Label>Deal $</Form.Label>
+                                <Form.Control disabled placeholder="Deal" name="deal" defaultValue={this.state.itemData.deal} />
+                                </Col>
+                            </Row>
+                        </Form>
+                        <Form.Group className="buttoms">
+                            <Button onClick={this.handleSubmit1}>Suspend Order</Button>
+                            <Button className="red" onClick={this.handleSubmit}>Close Order</Button>
+                        </Form.Group>
+                    </div>
                     </Container>
                 </LayoutTwo>
         )

@@ -24,18 +24,14 @@ export default class Chains extends React.Component{
                             <Form>
                             <Row>
                                 <Col>
-                                <Form.Label>Code</Form.Label>
-                                <Form.Control placeholder="Code" />
-                                </Col>
-                                <Col>
                                 <Form.Label>Active</Form.Label>
                                 <Form>
                                     <Form.Check 
                                         type="switch"
                                         id="custom-switch"
                                     />
-                                </Form>
-                                </Col>  
+                                </Form> 
+                                </Col>
                             </Row>
                         </Form>
                         </Form.Group>
