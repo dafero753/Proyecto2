@@ -1,0 +1,29 @@
+.layout {
+    color: rgb(27,19,99); 
+}
+
+.image1 {
+    width: 100px;
+}
+
+.top1 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+    align-items: center;
+}
+
+
+
+.back {
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(27,19,99);
+    color: white;
+}
+
+.back:hover {
+    color: rgb(27,19,99);
+    background-color: #ffffff;
+}

@@ -22,7 +22,6 @@ export default class Entry extends React.Component{
         this.state = {
             form:{
                 PriceLevel: '',
-                ItemCode: '',
                 companyId: '',
                 OrderNo: '',
                 ItemCode: '',
@@ -51,8 +50,6 @@ export default class Entry extends React.Component{
         }; 
       } 
      
-
-
       handleSubmit = e => {
         e.preventDefault();
         const bodyInfo = JSON.stringify({
@@ -63,9 +60,10 @@ export default class Entry extends React.Component{
             deliveryDate: `${cookies.get('deliveryDate')}`,
             userCodeModification: `${cookies.get('userCodeModification')}`, 
         })
+        console.log(bodyInfo);
         axios.put(baseUrl3, bodyInfo, {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             }
         })
         .then(response => {
@@ -152,6 +150,7 @@ export default class Entry extends React.Component{
             PriceLevel: `${cookies.get('pricelevel')}`,
             ItemCode: `${this.state.form.ItemCode}`,
         })
+        console.log(itemInfo)
         await axios.post(baseUrl, itemInfo, {
             headers: {
                 'Content-Type': 'application/json',
@@ -218,6 +217,7 @@ export default class Entry extends React.Component{
             Price: `${this.state.itemData.price}`,
             UserCodeModification: `${cookies.get('userCodeModification')}`,
         })
+        console.log(itemInfo2);
         if(this.state.form.OrderCases != 0 && this.state.form.OrderCases != undefined){
             await axios.post(baseUrl2, itemInfo2, {
                 headers: {
@@ -226,7 +226,7 @@ export default class Entry extends React.Component{
             })
             .then ( response => {
                 console.log(response.data)
-                if(response.data.exist == 0){
+                if(response.data.exist == "0"){
                 return response.data;
                 }else{
                     this.setState({ existed: true});
@@ -251,8 +251,6 @@ export default class Entry extends React.Component{
                         color: withe;
                         ">Delete Item</button>
                         `*/
-                    
-                    console.log('entro!!')
                 }
             } )
             .then ( response => {
@@ -303,13 +301,13 @@ export default class Entry extends React.Component{
                     <Form onSubmit={e => this.getItemInfo(e)} id="myForm">    
                         <Form.Group >
                             <Form.Label>Item N°. / UPC</Form.Label>
-                            <Form.Control  type="number" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange} defaultValue={cookies.get('thisItemCode')}/>
+                            <Form.Control  type="number" autoFocus="autofocus" name="ItemCode" onChange={this.handleChange}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Order quantity</Form.Label>
                             <br></br>
                             <Form.Label>Cases</Form.Label>
-                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange} pattern="^[0-9]+" min="1"defaultValue={cookies.get('cases')}/>
+                            <Form.Control type="number" placeholder="cases" name="OrderCases" onChange={this.handleChange} pattern="^[0-9]+" min="1"/>
                         </Form.Group>
                         <div id="botonChange">
                             <Button className="b2" type="submit">Add Item to Order</Button>

@@ -10,7 +10,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 
 const cookies = new Cookies()
 const baseUrl = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/account/register/`
-const baseUrl2 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/Users/1`
+
 
 
 export default class Users extends React.Component{
@@ -101,7 +101,6 @@ export default class Users extends React.Component{
                 }
             }            
         }).then(() => {
-            console.log(this.state.currentUsers.userActive)
             if(this.state.currentUsers.userActive === true) {
                 this.setState({
                     ...this.state,
@@ -220,7 +219,7 @@ export default class Users extends React.Component{
                                 <Row>
                                     <Col>
                                     <Form.Label>Code</Form.Label>
-                                    <Form.Control placeholder="Code" defaultValue={this.state.currentUsers.userCode} onChange={this.setFieldValue} name="newCode"/>
+                                    <Form.Control placeholder="Code" defaultValue={this.state.currentUsers.userCode} onChange={this.setFieldValue} name="newCode" disabled/>
                                     </Col>
                                     <Col>
                                     <Form.Label>Active</Form.Label>

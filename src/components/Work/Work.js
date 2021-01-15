@@ -42,8 +42,6 @@ export default class Work extends React.Component{
         cookies.set('deliveryDate', this.state.items[index].deliveryDate, {path: "/"});
         cookies.set('userCodeCreation', this.state.items[index].userCodeCreation, {path: "/"});
         window.location.href="/entry-orders";  
-        cookies.remove('thisItemCode')
-        cookies.remove('cases')
         document.querySelector("#workForm").reset();
     }
     
@@ -142,13 +140,8 @@ export default class Work extends React.Component{
                 cookies.set('userCodeCreationNavigation', resp.userCodeCreationNavigation, {path: "/"});
                 cookies.set('userCodeModificationNavigation', resp.userCodeModificationNavigation, {path: "/"});
                 cookies.set('pricelevel', this.state.data, {path: "/"});
-                //alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
-                //toastr.success('Success Message', 'Title', {displayDuration:3000})
-                swal("Good job!", `Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`, "success");
-                //window.location.href="/entry-orders";   
-                window.setTimeout(function(){ 
-                    window.location.href = "/entry-orders"; 
-                   }, 2500);   
+                alert(`Order created with No ${resp.orderNo} and company ID No ${resp.companyId}`)
+                window.location.href="/entry-orders";    
             }else {
                 alert("something went wrong");
             }
@@ -168,7 +161,7 @@ export default class Work extends React.Component{
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
                         <Form.Control as="select" value={this.state.value} onChange={this.handleChange1} >
-                            <option></option>
+                            <option>Select a Company</option>
                         {this.state.stores[0].map(e => (    
                            <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId">
                                 {e.companyName}

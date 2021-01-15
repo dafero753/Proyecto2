@@ -74,7 +74,7 @@ export default class Sent extends React.Component{
     go = async(e) => {
         e.preventDefault();
         const create = JSON.stringify({
-            CompanyId: `3`,
+            CompanyId: `${this.state.form.companyId}`,
             date1: `${this.state.form.date1}T00:00:00.000Z`,
             date2: `${this.state.form.date2}T23:59:59.000Z`
         })

@@ -33,3 +33,7 @@ hr {
 .form4 {
     margin-top: 30px;
 }
+
+.activeStore {
+    margin-top: -30px;
+}

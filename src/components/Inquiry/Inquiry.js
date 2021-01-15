@@ -1,11 +1,11 @@
 import React from 'react'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import './style.css'
-import LayoutTwo from '../LayoutTwo/LayoutTwo'
+import LayoutThree from '../LayoutThree/LayoutThree'
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";
+const baseUrl = "https://still-headland-07577.herokuapp.com//https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";
 
 const cookies = new Cookies()
 
@@ -130,14 +130,14 @@ export default class Inquiry extends React.Component{
      
     render(){
         return(
-                <LayoutTwo className="border uplay">
+                <LayoutThree className="border uplay">
                     <Container className="container-bottom">
                     <h2>Item Inquiry</h2>
                     <Form onSubmit={(e)=>this.getStore(e)} id="storeInfo">
                     <Form.Group>
                         <Form.Label>Company Name</Form.Label>
                         <Form.Control as="select" value={this.state.value} onChange={this.handleChange1}>
-                        <option></option>
+                        <option>Select a Company</option>
                         {this.state.stores[0].map(e => (    
                            <option key={e.companyId} id={e.pricelevel} value={e.companyId} name="companyId" >
                                 {e.companyName}
@@ -205,7 +205,7 @@ export default class Inquiry extends React.Component{
                         <Form.Control type="text" placeholder="UPC" disabled name="upc" defaultValue={this.state.itemData.upc} />
                     </Form.Group>
                     </Container>
-                </LayoutTwo>
+                </LayoutThree>
         )
     }
 }
