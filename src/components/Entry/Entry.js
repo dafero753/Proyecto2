@@ -52,6 +52,14 @@ export default class Entry extends React.Component{
      
       handleSubmit = e => {
         e.preventDefault();
+        /*const bodyInfo = JSON.stringify({
+            companyId: `1`,
+            orderNo: `1`,
+            orderDate: `2021-01-15T06:23:00.6913774+00:00`,
+            orderStatus: `O`,
+            deliveryDate: `2021-01-13T00:00:00`,
+            userCodeModification: `9`, 
+        })*/
         const bodyInfo = JSON.stringify({
             companyId: `${cookies.get('companyId')}`,
             orderNo: `${cookies.get('orderNo')}`,

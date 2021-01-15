@@ -5,7 +5,7 @@ import LayoutThree from '../LayoutThree/LayoutThree'
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-const baseUrl = "https://radiant-sierra-23083.herokuapp.com//https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";
+const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";
 
 const cookies = new Cookies()
 
@@ -100,7 +100,8 @@ export default class Inquiry extends React.Component{
                 cookies.set('dealOff', resp.dealOff, {path: "/"});
                 cookies.set('status', resp.status, {path: "/"});
                 cookies.set('date', resp.date, {path: "/"});
-                cookies.set('oldPrice', resp.oldPrice, {path: "/"});          
+                cookies.set('oldPrice', resp.oldPrice, {path: "/"});       
+                console.log(resp)   
             }
         })
         .catch ( error => {
