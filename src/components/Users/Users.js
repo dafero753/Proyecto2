@@ -162,15 +162,61 @@ export default class Users extends React.Component{
 
         let changePassword = 0;
 
+        let userCode = "";
+        let userPassword = "";
+        let ConfirmPassword = "";
+        let userName = "";
+        let userLanguage = "";
+        let userActive = "";
+        let companyId = "";
+        let roleId = "";
+        let changepassword = "";
+
+        if(this.state.newCode){
+            userCode = this.state.storeType
+        }else{
+            userCode = this.state.currentUsers.userCode
+        };
+        if(this.state.newPassword){
+            userPassword = this.state.newPassword
+        }else{
+            userPassword = this.state.currentUsers.userPassword
+        };
+        if(this.state.newConfirmPasword){
+            ConfirmPassword = this.state.newConfirmPasword
+        }else{
+            ConfirmPassword = this.state.currentUsers.ConfirmPassword
+        };
+        if(this.state.newName){
+            userName = this.state.newName
+        }else{
+            userName = this.state.currentUsers.userName
+        };
+        if(this.state.newlenguage){
+            userLanguage = this.state.newlenguage
+        }else{
+            userLanguage = this.state.currentUsers.userLanguage
+        };
+        if(this.state.newStore){
+            companyId = this.state.newStore
+        }else{
+            companyId = this.state.currentUsers.companyId
+        };
+        if(this.state.newRole){
+            roleId = this.state.newRole
+        }else{
+            roleId = this.state.currentUsers.roleId
+        };
+
         const infoUser = JSON.stringify({
-            userCode: `${this.state.currentUsers.userCode}`,
-            userPassword: `${this.state.currentUsers.userPassword}`,
-            ConfirmPassword: `${this.state.newConfirmPasword}`,
-            userName: `${this.state.currentUsers.userName}`,
-            userLanguage: `1`,
+            userCode: `${userCode}`,
+            userPassword: `${userPassword}`,
+            ConfirmPassword: `${ConfirmPassword}`,
+            userName: `${userName}`,
+            userLanguage: `${userLanguage}`,
             userActive: `${this.state.active}`,
-            companyId: `${this.state.newStore}`,
-            roleId: `${this.state.newRole}`,
+            companyId: `${companyId}`,
+            roleId: `${roleId}`,
             changepassword: changePassword,
         })
 
@@ -204,7 +250,7 @@ export default class Users extends React.Component{
                             <Form.Group>
                                 <Form.Label>User Name</Form.Label>
                                 <Form.Control as="select" defaultValue="User List" onChange={this.handleChange}>
-                                <option></option>
+                                <option>Select User</option>
                                 {
                                     this.state.users.map((user, index) => {
                                         return(
@@ -219,7 +265,7 @@ export default class Users extends React.Component{
                                 <Row>
                                     <Col>
                                     <Form.Label>Code</Form.Label>
-                                    <Form.Control placeholder="Code" defaultValue={this.state.currentUsers.userCode} onChange={this.setFieldValue} name="newCode" disabled/>
+                                    <Form.Control placeholder="Code" defaultValue={this.state.currentUsers.userCode} onChange={this.setFieldValue} name="newCode" />
                                     </Col>
                                     <Col>
                                     <Form.Label>Active</Form.Label>
