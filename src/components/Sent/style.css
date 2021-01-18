@@ -1,0 +1,36 @@
+hr {
+    height: 2px;
+    background-color: whitesmoke;
+}
+
+.div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 300px;
+    margin-left: 80px;
+}
+
+
+.form4 {
+    margin-bottom: 20px;
+}
+
+.buttoms {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.red {
+    background-color: red;
+}
+
+.red:hover {
+    background-color: white;
+    color: red;
+}
+
+.buttomDate {
+    width: 100%;
+    margin-bottom: 20px;
+}

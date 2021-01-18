@@ -1,0 +1,70 @@
+hr {
+    height: 2px;
+    background-color: whitesmoke;
+}
+
+.buttom3 {
+    background-color: rgb(233,184,25);
+    border-radius: 5px;
+    color: rgb(21,13,97);
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 5px rgb(62,74,129);
+}
+
+.buttom2 {
+    background-color: rgb(233,184,25);
+    border-radius: 5px;
+    color: rgb(21,13,97);
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 5px rgb(62,74,129);
+}
+
+.buttom2:hover {
+    background-color: rgb(21,13,97);
+    color: rgb(233,184,25);
+
+}
+
+
+.form4 {
+    margin-bottom: 20px;
+}
+
+.buttoms {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.red {
+    background-color: red;
+}
+
+.red:hover {
+    background-color: white;
+    color: red;
+}
+
+.buttonSave {
+    background-color: rgb(32, 145, 15);
+    box-shadow: 2px 2px 5px rgb(40, 72, 31);
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+    width: 30%;
+}
+
+.buttonDelete {
+    background-color: rgb(189, 56, 56);
+    box-shadow: 2px 2px 5px rgb(52, 32, 32);
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+    width: 30%;
+}
+.container-form {
+    font-size: 12px;
+}
+
+.form-control{
+    font-size: 0.8rem;
+}

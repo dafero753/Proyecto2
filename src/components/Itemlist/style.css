@@ -1,0 +1,38 @@
+
+.div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 300px;
+    margin-left: 80px;
+}
+
+
+.form4 {
+    margin-bottom: 20px;
+}
+
+.buttoms {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.red {
+    background-color: red;
+}
+
+.red:hover {
+    background-color: white;
+    color: red;
+}
+
+
+@media (max-width: 560px) {
+        .table1 {
+            font-size: 0.5rem;
+    }
+}
+
+.this-link {
+    cursor: pointer;
+}

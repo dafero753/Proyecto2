@@ -1,0 +1,33 @@
+.container-bottom {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 30px rgb(62,74,129);
+    background-color: rgb(232, 229, 229);
+}
+
+.btn {
+    background-color: rgb(27,19,99);
+    box-shadow: 2px 2px 5px rgb(62,74,129);
+}
+
+.buttom-entry, .buttom-item, .buttom-reports {
+    margin-top: 20px;
+}
+
+.buttom-exit {
+    margin-top: 50px;
+}
+
+.btn-primary {
+    border-color: none;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

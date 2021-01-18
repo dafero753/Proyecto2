@@ -1,0 +1,14 @@
+.initial-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(232, 229, 229);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 30px rgb(62,74,129);
+}
+
+.first-buttom{
+    width: 100%;
+    margin-top: 20px;
+}
