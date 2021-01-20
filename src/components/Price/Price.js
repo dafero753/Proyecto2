@@ -20,7 +20,7 @@ export default class Price extends React.Component{
       }  
     
       componentDidMount() {
-        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/${cookies.get('companyId')}`)
+        axios.get(`https://orderentryappv1.azurewebsites.net/api/reports/${cookies.get('companyId')}`)
         .then(function(response) {         
             let res = document.querySelector('#res3');
             res.innerHTML=""

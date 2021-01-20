@@ -190,6 +190,7 @@ export default class Stores extends React.Component{
     }
 
     handleChecking = async e => {
+        console.log(e.target.value)
         if(e.target.checked === true){
             await  this.setState({
                 ...this.state,
@@ -211,10 +212,10 @@ export default class Stores extends React.Component{
         let chainId = "";
         let priceLevel = "";
         let companyCode = "";
-        if(this.state.storeType){
-            companyType = this.state.storeType
+        if(this.state.newStoreType){
+            companyType = this.state.newStoreType
         }else{
-            companyType = this.state.currentStore.companyType
+            companyType = this.state.companyType
         };
         if(this.state.newAdress){
             companyAddress = this.state.newAdress
@@ -244,7 +245,7 @@ export default class Stores extends React.Component{
         if(this.state.newChain){
             chainId = this.state.newChain
         }else{
-            chainId = this.state.currentStore.chain
+            chainId = this.state.currentStore.chainId
         };
 
 
@@ -256,13 +257,13 @@ export default class Stores extends React.Component{
             companyPhone: `${companyPhone}`,
             companyEmail: `${companyEmail}`,
             companyContactName: `${companyContactName}`,
-            companyActive: `${this.state.active}`,
+            companyActive: this.state.active,
             chainId: `${chainId}`,
             pricelevel: `${priceLevel}`,
             companyCode: `${this.state.currentStore.companyCode}`,
         })
         console.log(infoUser)
-        await axios.put(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/companies/${this.state.currentStore.companyId}`, infoUser, {
+        await axios.put(`https://orderentryappv1.azurewebsites.net/api/companies/${this.state.currentStore.companyId}`, infoUser, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -281,20 +282,20 @@ export default class Stores extends React.Component{
         e.preventDefault();
         console.log(this.state.currentChain)
         const infoUser = JSON.stringify({
-            companyId: `27`,
+            companyId: Math.round(Math.random()*100),
             companyType: `${this.state.companyType}`,
             companyName: `${this.state.newName}`,
             companyAddress: `${this.state.newAdress}`,
             companyPhone: `${this.state.newPhone}`,
             companyEmail: `${this.state.newEmail}`,
             companyContactName: `${this.state.newContact}`,
-            companyActive: `${this.state.active}`,
+            companyActive: this.state.active,
             chainId: `${this.state.currentChain.chainId}`,
             pricelevel: `${this.state.newPriceLevel}`,
             companyCode: `${this.state.newStoreCode}`,
         })
         console.log(infoUser)
-        await axios.post(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/companies`, infoUser, {
+        await axios.post(`https://orderentryappv1.azurewebsites.net/api/companies`, infoUser, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -347,29 +348,25 @@ export default class Stores extends React.Component{
                                         })
                                     }
                                 </Form.Control>
-                                <Form className="form4">
                                     <Row>
                                     <Form.Label as="legend" column sm={4}>
                                     Store Type
                                     </Form.Label>
                                     <Col xs={9} className="checkButton" key="checkButton" onChange={this.handleChecking} checked={this.state.checked}>
-                                    <Form.Check type="radio" name="storeType" inline label="Single" value="SU" checked ={this.state.checkedSu}/>
-                                    <Form.Check type="radio" name="storeType" inline label="Chain" value="SC" checked ={this.state.checkedSc} />
-                                    <Form.Check type="radio" name="storeType" inline label="Distributor" value="DI" checked ={this.state.checkedCi}/>
+                                    <Form.Check type="radio" name="newStoreType" inline label="Single" value="SU" defaultChecked ={this.state.checkedSu}/>
+                                    <Form.Check type="radio" name="newStoreType" inline label="Chain" value="SC" defaultChecked ={this.state.checkedSc} />
+                                    <Form.Check type="radio" name="newStoreType" inline label="Distributor" value="DI" defaultChecked ={this.state.checkedCi}/>
                                     </Col>
                                     <Col className="activeStore">
                                     <Form.Label>Active</Form.Label>
-                                    <Form>
-                                        <Form.Check 
-                                            type="switch"
-                                            id="custom-switch"
-                                            onChange={this.handleSwich}
-                                            checked ={this.state.checked}
-                                        />
-                                    </Form>
+                                    <Form.Check 
+                                        type="switch"
+                                        id="custom-switch"
+                                        onChange={this.handleSwich}
+                                        checked ={this.state.checked}
+                                    />
                                     </Col>  
                                 </Row>
-                            </Form>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Name</Form.Label>
@@ -391,7 +388,6 @@ export default class Stores extends React.Component{
                                 <Form.Label>Contact</Form.Label>
                                 <Form.Control type="text" placeholder="Contact" defaultValue={this.state.currentStore.companyContactName} onChange={this.setFieldValue} name="newContact" />
                             </Form.Group>
-                            <Form className="form4">
                                     <Row>
                                     <Col>
                                     <Form.Label>
@@ -410,7 +406,6 @@ export default class Stores extends React.Component{
                                     </Col>
                                     </Col> 
                                 </Row>
-                            </Form>
                             {
                                 this.state.existed ? (
                                     <Button className="b3" onClick = {this.handleSaveStoreClick}>Save</Button>

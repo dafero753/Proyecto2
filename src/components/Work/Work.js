@@ -4,10 +4,8 @@ import axios from 'axios';
 import './style.css';
 import LayoutTwo from '../LayoutTwo/LayoutTwo';
 import Cookies from 'universal-cookie';
-import toastr from 'reactjs-toastr';
-import swal from 'sweetalert';
 
-const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderHeaders";
+const baseUrl = "https://orderentryappv1.azurewebsites.net/api/OrderHeaders";
 
 const cookies = new Cookies()
 
@@ -41,8 +39,17 @@ export default class Work extends React.Component{
         cookies.set('orderNo', this.state.items[index].orderNo, {path: "/"});
         cookies.set('deliveryDate', this.state.items[index].deliveryDate, {path: "/"});
         cookies.set('userCodeCreation', this.state.items[index].userCodeCreation, {path: "/"});
+        cookies.set('company', this.state.items[index].company, {path: "/"});
+        cookies.set('companyId', this.state.items[index].companyId, {path: "/"});
+        cookies.set('lastModification', this.state.items[index].lastModification, {path: "/"});
+        cookies.set('orderDate', this.state.items[index].orderDate, {path: "/"});
+        cookies.set('orderStatus', this.state.items[index].orderStatus, {path: "/"});
+        cookies.set('userCodeCreation: "9"', this.state.items[index].userCodeCreation, {path: "/"});
+        cookies.set('userCodeModification', this.state.items[index].userCodeModification, {path: "/"});
+        cookies.set('userCodeModificationNavigation', this.state.items[index].userCodeModificationNavigation, {path: "/"});
         window.location.href="/entry-orders";  
         document.querySelector("#workForm").reset();
+        
     }
     
     handleChange = async e => {
@@ -73,7 +80,7 @@ export default class Work extends React.Component{
             data: price.toString()
         });
         await axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderQueries/${this.state.form.companyId}/O`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/OrderQueries/${this.state.form.companyId}/O`)
         .then(function(response) {   
             this.setState({
                 ...this.state,

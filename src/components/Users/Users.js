@@ -6,10 +6,10 @@ import ImgSpain from '../../static/img/spain.png'
 import ImgUnited from '../../static/img/united.png'
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import { Typeahead } from 'react-bootstrap-typeahead';
+
 
 const cookies = new Cookies()
-const baseUrl = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/account/register/`
+const baseUrl = `https://orderentryappv1.azurewebsites.net/api/account/register/`
 
 
 
@@ -25,7 +25,7 @@ export default class Users extends React.Component{
             stores: [],
             select: [],
             id: [],
-            active: false,
+            active: true,
             checked: '',
             existed: false,
         }
@@ -34,7 +34,7 @@ export default class Users extends React.Component{
     componentDidMount() {
 
         axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/users/${cookies.get('companyId')}/${cookies.get('roleId')}`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/users/${cookies.get('companyId')}/${cookies.get('roleId')}`)
         .then((response) => {
             this.setState({
                 ...this.state,
@@ -45,7 +45,7 @@ export default class Users extends React.Component{
             console.log(error);
         });
         axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/roles/${cookies.get('roleId')}`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/roles/${cookies.get('roleId')}`)
         .then((response) => {
             this.setState({
                 ...this.state,
@@ -56,7 +56,7 @@ export default class Users extends React.Component{
             console.log(error);
         });
         axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/companies/${cookies.get('companyId')}/${cookies.get('roleId')}`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/companies/${cookies.get('companyId')}/${cookies.get('roleId')}`)
         .then((response) => {
             this.setState({
                 ...this.state,
@@ -87,7 +87,7 @@ export default class Users extends React.Component{
         });
 
         await axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/users/${cookies.get('companyId')}/${cookies.get('roleId')}`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/users/${cookies.get('companyId')}/${cookies.get('roleId')}`)
         .then((response) => {
 
             const data = response.data
@@ -150,6 +150,11 @@ export default class Users extends React.Component{
             alert('New user added')
             return response.data;
         } )
+        .then ( response => {
+            document.querySelector("#form7").reset();
+            document.querySelector("#form8").reset();
+            document.querySelector("#form9").reset();
+        })
         .catch ( error => {
             console.error('Error:', error);
             alert("Something went wrong");
@@ -173,7 +178,7 @@ export default class Users extends React.Component{
         let changepassword = "";
 
         if(this.state.newCode){
-            userCode = this.state.storeType
+            userCode = this.state.newCode
         }else{
             userCode = this.state.currentUsers.userCode
         };
@@ -214,14 +219,14 @@ export default class Users extends React.Component{
             ConfirmPassword: `${ConfirmPassword}`,
             userName: `${userName}`,
             userLanguage: `${userLanguage}`,
-            userActive: `${this.state.active}`,
+            userActive: this.state.active,
             companyId: `${companyId}`,
             roleId: `${roleId}`,
             changepassword: changePassword,
         })
 
         console.log(infoUser)
-        await axios.put(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/Users/${this.state.currentUsers.userCode}`, infoUser, {
+        await axios.put(`https://orderentryappv1.azurewebsites.net/api/Users/${this.state.currentUsers.userCode}`, infoUser, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -230,6 +235,11 @@ export default class Users extends React.Component{
             alert('User saved')
             return response.data;
         } )
+        .then ( response => {
+            document.querySelector("#form7").reset();
+            document.querySelector("#form8").reset();
+            document.querySelector("#form9").reset();
+        })
         .catch ( error => {
             console.error('Error:', error);
             alert("Something went wrong");
@@ -246,7 +256,7 @@ export default class Users extends React.Component{
                 <LayoutTwo className="border uplay">
                     <Container className="container-bottom">
                         <h2>User Maintenance</h2>
-                        <Form>
+                        <Form id="form7">
                             <Form.Group>
                                 <Form.Label>User Name</Form.Label>
                                 <Form.Control as="select" defaultValue="User List" onChange={this.handleChange}>
@@ -297,7 +307,7 @@ export default class Users extends React.Component{
                             <img src={ImgUnited} alt="ags" className="imageU"/>  
                         </div>
                         <Form.Group>
-                            <Form>
+                            <Form id="form8">
                                 <Form.Label><strong>Role</strong></Form.Label>
                                 <Form.Control as="select" placeholder="Role list" onChange={this.setFieldValue} name="newRole">
                                     <option>{this.state.currentUsers.roleId}</option>
@@ -312,7 +322,7 @@ export default class Users extends React.Component{
                                 }
                                 </Form.Control>
                             </Form>
-                            <Form>
+                            <Form id="form9">
                                 <Form.Label><strong>Store</strong></Form.Label>
                                 <Form.Control as="select" placeholder="Store list" onChange={this.setFieldValue} name="newStore">
                                     <option>{this.state.currentUsers.companyId}</option>

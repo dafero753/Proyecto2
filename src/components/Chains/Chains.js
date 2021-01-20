@@ -20,7 +20,7 @@ export default class Chains extends React.Component{
 
     componentDidMount() {
         axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/chains`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/chains`)
         .then((response) => {
             this.setState({
                 ...this.state,
@@ -53,10 +53,11 @@ export default class Chains extends React.Component{
         });
 
         await axios
-        .get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/chains`)
+        .get(`https://orderentryappv1.azurewebsites.net/api/chains`)
         .then((response) => {
 
             const data = response.data
+            console.log(data);
 
             for (let i = 0; i < data.length; i++) {
                 if(this.state.chainId == data[i].chainId) {
@@ -104,10 +105,10 @@ export default class Chains extends React.Component{
         console.log(this.state.newName)
         const infoUser = JSON.stringify({
             chainName: `${this.state.newName}`,
-            chainActive: `${this.state.active}`,
+            chainActive: this.state.active,
         })
         console.log(infoUser)
-        await axios.post(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/Chains`, infoUser, {
+        await axios.post(`https://orderentryappv1.azurewebsites.net/api/Chains`, infoUser, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -116,6 +117,9 @@ export default class Chains extends React.Component{
             alert('New Chain added')
             return response.data;
         } )
+        .then ( response => {
+            document.querySelector("#form7").reset();
+        })
         .catch ( error => {
             console.error('Error:', error);
             alert("Something went wrong");
@@ -144,12 +148,13 @@ export default class Chains extends React.Component{
         };
 
         const infoUser = JSON.stringify({
+            chainId: `${this.state.currentChain.chainId}`,
             chainName: `${chainName}`,
-            chainActive: `${this.state.active}`,
+            chainActive: this.state.active,
             
         })
         console.log(infoUser)
-        await axios.put(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/Chains/${this.state.currentChain.chainId}`, infoUser, {
+        await axios.put(`https://orderentryappv1.azurewebsites.net/api/Chains/${this.state.currentChain.chainId}`, infoUser, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -158,6 +163,9 @@ export default class Chains extends React.Component{
             alert('Company saved')
             return response.data;
         } )
+        .then ( response => {
+            document.querySelector("#form7").reset();
+        })
         .catch ( error => {
             console.error('Error:', error);
             alert("Something went wrong");
@@ -173,7 +181,7 @@ export default class Chains extends React.Component{
             <LayoutTwo className="border uplay">
                 <Container className="container-bottom">
                 <h2>Chains Maintenance</h2>
-                    <Form>
+                    <Form id="form7">
                         <Form.Group as={Col} >
                         <Form.Control as="select" defaultValue="Chain List" onChange={this.handleChange1} name="newChain">
                             <option>Select Chain</option>
@@ -188,21 +196,17 @@ export default class Chains extends React.Component{
                             }
                         </Form.Control>
                             <hr></hr>
-                            <Form>
                             <Row>
                                 <Col>
                                 <Form.Label>Active</Form.Label>
-                                    <Form>
                                         <Form.Check 
                                             type="switch"
                                             id="custom-switch"
                                             onChange={this.handleSwich}
                                             checked ={this.state.checked}
                                         />
-                                    </Form>
                                 </Col>
                             </Row>
-                        </Form>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Name</Form.Label>

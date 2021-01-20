@@ -6,12 +6,12 @@ import LayoutTwo from '../LayoutTwo/LayoutTwo';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies()
-const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";   
-const baseUrl2 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
-const baseUrl3 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Close";   
-const baseUrl4 = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/orderheaders/Suspend";   
-const baseUrl5 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('itemCode')}`;   
-const baseUrl6 = `https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('itemCode')}`;   
+const baseUrl = "https://orderentryappv1.azurewebsites.net/api/ItemFiles/GetItem";   
+const baseUrl2 = "https://orderentryappv1.azurewebsites.net/api/OrderDetails";   
+const baseUrl3 = "https://orderentryappv1.azurewebsites.net/api/orderheaders/Close";   
+const baseUrl4 = "https://orderentryappv1.azurewebsites.net/api/orderheaders/Suspend";   
+const baseUrl5 = `https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('itemCode')}`;   
+const baseUrl6 = `https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('itemCode')}`;   
 
 
 export default class Entry extends React.Component{
@@ -49,6 +49,10 @@ export default class Entry extends React.Component{
             existed: false,
         }; 
       } 
+
+      componentDidMount(){
+        console.log(cookies.get('orderNo'), cookies.get('deliveryDate'), cookies.get('userCodeCreation'))
+      }
      
       handleSubmit = e => {
         e.preventDefault();
@@ -71,7 +75,7 @@ export default class Entry extends React.Component{
         console.log(bodyInfo);
         axios.put(baseUrl3, bodyInfo, {
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
             }
         })
         .then(response => {

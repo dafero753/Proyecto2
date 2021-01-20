@@ -31,7 +31,7 @@ export default class Itemlist extends React.Component{
     }
     
       componentDidMount() {
-        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('priceLevel')}`)
+        axios.get(`https://orderentryappv1.azurewebsites.net/api/OrderDetails/${cookies.get('companyId')}/${cookies.get('orderNo')}/${cookies.get('priceLevel')}`)
         .then(function(response) { 
             console.log(response.data)
             this.setState({

@@ -19,7 +19,7 @@ export default class Detail extends React.Component{
       } 
 
     componentDidMount() {
-        axios.get(`https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/1/2`)
+        axios.get(`https://orderentryappv1.azurewebsites.net/api/reports/1/2`)
         .then(function(response) {   
             console.log(response.data)
             this.setState({items: response.data})   

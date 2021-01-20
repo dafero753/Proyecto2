@@ -7,7 +7,7 @@ import axios from 'axios';
 
 //poner stores
 
-const baseUrl = "https://radiant-sierra-23083.herokuapp.com/https://orderentryappv1.azurewebsites.net/api/reports/GetClosedOrdersByDates";
+const baseUrl = "https://orderentryappv1.azurewebsites.net/api/reports/GetClosedOrdersByDates";
 
 const cookies = new Cookies()
 
