@@ -212,7 +212,7 @@ export default class Work extends React.Component{
                                     <td>{item.orderNo}</td>
                                     <td>{item.deliveryDate}</td>
                                     <td>
-                                        <button onClick={() => {this.handleClick(index)}}>open</button>
+                                        <button className="buttonList" onClick={() => {this.handleClick(index)}}>open</button>
                                     </td>
                                 </tr>)
                             })
